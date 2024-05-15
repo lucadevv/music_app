@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
               top: 0,
               bottom: 0,
             ),
-            const BackdropFilterWidget(),
+            const BackdropFilterWidget(sgx: 200, sgy: 200),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: SizedBox(
