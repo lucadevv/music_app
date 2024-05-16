@@ -26,9 +26,9 @@ class Creator {
 
   factory Creator.fromJson(Map<String, dynamic> json) => Creator(
         id: json["id"],
-        name: json["name"],
-        tracklist: json["tracklist"],
-        link: json["link"],
+        name: json["name"] ?? "no-name",
+        tracklist: json["tracklist"] ?? "no-tracklist",
+        link: json["link"] ?? "no-link",
       );
 
   Map<String, dynamic> toJson() => {

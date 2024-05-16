@@ -21,7 +21,7 @@ class Tracks {
   factory Tracks.fromJson(Map<String, dynamic> json) => Tracks(
         data: List<SongModel>.from(
             json["data"].map((x) => SongModel.fromJson(x))),
-        checksum: json["checksum"],
+        checksum: json["checksum"] ?? "no-checksum",
       );
 
   Map<String, dynamic> toJson() => {
