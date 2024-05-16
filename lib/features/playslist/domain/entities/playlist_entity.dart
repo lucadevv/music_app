@@ -15,6 +15,12 @@ class PlayListEntity {
     required this.author,
     required this.trackList,
   });
+  PlayListEntity.empty()
+      : id = 0,
+        imagePath = '',
+        title = '',
+        author = '',
+        trackList = [];
   factory PlayListEntity.fromModelDb(PlayListModelDb db) {
     var trackList = db.tracks.data
         .map(
