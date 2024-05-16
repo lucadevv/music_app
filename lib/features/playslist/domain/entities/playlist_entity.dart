@@ -26,7 +26,7 @@ class PlayListEntity {
         .map(
           (song) => TrackEntity(
             id: song.id,
-            title: song.title,
+            title: song.titleShort,
             author: song.artist.name,
             duration: song.duration,
             urlMp3: song.preview,

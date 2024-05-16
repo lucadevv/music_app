@@ -6,8 +6,15 @@ import 'package:music_app/shared/const/app_color.dart';
 class ItemMusicWidget extends StatelessWidget {
   const ItemMusicWidget({
     super.key,
+    this.image = '',
+    this.author = '',
+    this.duration = 0,
+    this.title = '',
   });
-
+  final String image;
+  final String title;
+  final String author;
+  final int duration;
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -21,7 +28,14 @@ class ItemMusicWidget extends StatelessWidget {
                 height: 60,
                 width: 60,
                 decoration: BoxDecoration(
-                  color: Colors.indigo,
+                  image: DecorationImage(
+                    image: image.isNotEmpty
+                        ? NetworkImage(image)
+                        : const NetworkImage(
+                            "https://www.ncenet.com/wp-content/uploads/2020/04/No-image-found.jpg",
+                          ),
+                    fit: BoxFit.cover,
+                  ),
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
@@ -31,14 +45,16 @@ class ItemMusicWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Bye Bye",
+                    title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: textTheme.displayLarge!.copyWith(
                       fontSize: 18,
                     ),
                   ),
                   const SizedBox(width: 6),
                   Text(
-                    "Mashmello",
+                    author,
                     style: textTheme.displayMedium!.copyWith(
                       fontWeight: FontWeight.normal,
                     ),
@@ -47,7 +63,7 @@ class ItemMusicWidget extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                "3.58",
+                duration.toString(),
                 style: textTheme.displayMedium!.copyWith(
                   fontWeight: FontWeight.normal,
                   color: AppColors.white,

@@ -5,8 +5,9 @@ class DatasourceNtwBdHome {
   final dio = Dio();
 
   Future<List<PlayListModelDb>> fetchPlayList() async {
-    final response = await dio.get("https://api.deezer.com/playlist/908622995");
     try {
+      final response =
+          await dio.get("https://api.deezer.com/playlist/908622995");
       Map<String, dynamic> responseMap = response.data;
       final List<PlayListModelDb> modelList = [];
       final model = PlayListModelDb.fromJson(responseMap);

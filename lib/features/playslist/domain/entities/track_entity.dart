@@ -3,6 +3,7 @@ class TrackEntity {
   final String title;
   final String author;
   final int duration;
+
   final String urlMp3;
 
   TrackEntity({
