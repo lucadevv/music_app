@@ -6,7 +6,12 @@ import 'package:music_app/shared/widgets/ellipse_widget.dart';
 
 class PlaysListScreen extends StatelessWidget {
   static const name = "playslist_screen";
-  const PlaysListScreen({super.key});
+  const PlaysListScreen({
+    super.key,
+    required this.id,
+  });
+
+  final int id;
 
   @override
   Widget build(BuildContext context) {

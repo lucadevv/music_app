@@ -1,19 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:music_app/features/home/data/network/model/playlist_model_db.dart';
 
-class DatasourceNtwBdHome {
+class DatasourcePlayListNtwDb {
   final dio = Dio();
 
-  Future<List<PlayListModelDb>> fetchPlayList() async {
-    final response = await dio.get("https://api.deezer.com/playlist/908622995");
+  Future<PlayListModelDb> fetPlayList() async {
     try {
+      final response =
+          await dio.get("https://api.deezer.com/playlist/908622995");
       Map<String, dynamic> responseMap = response.data;
-      final List<PlayListModelDb> modelList = [];
       final model = PlayListModelDb.fromJson(responseMap);
-      modelList.add(model);
-      return modelList;
+      return model;
     } catch (e) {
-      return [];
+      throw Exception('Failed to fetch playlist: $e');
     }
   }
 }

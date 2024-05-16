@@ -27,12 +27,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     try {
       final response = await playListHomeRepository.fetchPlayListHome();
+      emit(state.copyWith(
+          plalistHomeEntity: response, homeStatus: HomeStatus.sucess));
     } catch (e) {
       emit(state.copyWith(homeStatus: HomeStatus.error));
     }
   }
 
-  FutureOr<void> helloEventState(HelloEvent event, Emitter<HomeState> emit) {
-    print(event.name);
-  }
+  FutureOr<void> helloEventState(HelloEvent event, Emitter<HomeState> emit) {}
 }

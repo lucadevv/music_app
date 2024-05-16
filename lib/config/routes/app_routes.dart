@@ -18,7 +18,13 @@ final appRoutes = GoRouter(
             GoRoute(
               name: PlaysListScreen.name,
               path: PlaysListScreen.name,
-              builder: (context, state) => const PlaysListScreen(),
+              builder: (context, state) {
+                final id = int.parse(state.extra.toString());
+
+                return PlaysListScreen(
+                  id: id,
+                );
+              },
             ),
             GoRoute(
               name: PlayScreen.name,

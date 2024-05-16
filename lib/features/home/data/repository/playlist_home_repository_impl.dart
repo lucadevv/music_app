@@ -9,6 +9,9 @@ class PlayListHomeRepositoryImpl extends PlayListHomeRepository {
   @override
   Future<List<PlayListHomeEntity>> fetchPlayListHome() async {
     final response = await datasourceNtwBdHome.fetchPlayList();
-    return [];
+    final dataMap = response.map((e) {
+      return PlayListHomeEntity.fromModelDb(e);
+    }).toList();
+    return dataMap;
   }
 }
