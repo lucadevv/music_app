@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+
 import 'package:music_app/features/play/ui/widgets/sliverappbar_play_widget.dart';
 import 'package:music_app/features/play/ui/widgets/sliverbox_play_widget.dart';
+import 'package:music_app/features/playslist/domain/entities/track_entity.dart';
 import 'package:music_app/shared/widgets/backdropfilter_widget.dart';
 
 class PlayScreen extends StatelessWidget {
   static const name = "play_screen";
-  const PlayScreen({super.key});
+  const PlayScreen({
+    super.key,
+    required this.item,
+  });
+  final TrackEntity item;
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +25,15 @@ class PlayScreen extends StatelessWidget {
           fit: StackFit.expand,
           alignment: Alignment.center,
           children: [
-            Image.network(
-              "https://mrwallpaper.com/images/thumbnail/alan-walker-poster-yazitmrmam8u88tj.jpg",
-              fit: BoxFit.cover,
+            ColorFiltered(
+              colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.4),
+                BlendMode.darken,
+              ),
+              child: Image.network(
+                item.imagePath,
+                fit: BoxFit.cover,
+              ),
             ),
             const BackdropFilterWidget(
               sgx: 10,
@@ -30,10 +42,12 @@ class PlayScreen extends StatelessWidget {
             SizedBox(
               height: size.height,
               width: size.width,
-              child: const CustomScrollView(
+              child: CustomScrollView(
                 slivers: [
-                  SliverAppbarPlayWidget(),
-                  SliverBoxPlayWidget(),
+                  SliverAppbarPlayWidget(
+                    item: item,
+                  ),
+                  SliverBoxPlayWidget(item: item),
                 ],
               ),
             )

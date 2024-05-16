@@ -1,3 +1,4 @@
+import 'package:music_app/features/home/data/network/model/album_model_db.dart';
 import 'package:music_app/features/home/data/network/model/creator_model_db.dart';
 
 class SongModel {
@@ -16,6 +17,7 @@ class SongModel {
   final String md5Image;
   final int timeAdd;
   final Creator artist;
+  final Album album;
 
   SongModel({
     required this.id,
@@ -33,6 +35,7 @@ class SongModel {
     required this.md5Image,
     required this.timeAdd,
     required this.artist,
+    required this.album,
   });
 
   SongModel copyWith({
@@ -51,6 +54,7 @@ class SongModel {
     String? md5Image,
     int? timeAdd,
     Creator? artist,
+    Album? album,
   }) =>
       SongModel(
         id: id ?? this.id,
@@ -69,6 +73,7 @@ class SongModel {
         md5Image: md5Image ?? this.md5Image,
         timeAdd: timeAdd ?? this.timeAdd,
         artist: artist ?? this.artist,
+        album: album ?? this.album,
       );
 
   factory SongModel.fromJson(Map<String, dynamic> json) => SongModel(
@@ -87,6 +92,7 @@ class SongModel {
         md5Image: json["md5_image"] ?? "no-md5",
         timeAdd: json["time_add"],
         artist: Creator.fromJson(json["artist"]),
+        album: Album.fromJson(json["album"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -105,5 +111,6 @@ class SongModel {
         "md5_image": md5Image,
         "time_add": timeAdd,
         "artist": artist.toJson(),
+        "album": album.toJson(),
       };
 }

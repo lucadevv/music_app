@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:music_app/shared/widgets/item_music_widget.dart';
 
 class YourFavoriteWidget extends StatelessWidget {
   const YourFavoriteWidget({
@@ -27,7 +26,7 @@ class YourFavoriteWidget extends StatelessWidget {
               itemBuilder: (context, index) {
                 return const Padding(
                   padding: EdgeInsets.only(bottom: 12),
-                  child: ItemMusicWidget(),
+                  //child: ItemMusicWidget(),
                 );
               },
             ),

@@ -30,6 +30,7 @@ class PlayListEntity {
             author: song.artist.name,
             duration: song.duration,
             urlMp3: song.preview,
+            imagePath: song.album.coverBig,
           ),
         )
         .toList();

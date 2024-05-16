@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:music_app/features/playslist/domain/entities/track_entity.dart';
 import 'package:music_app/shared/const/svg_icon.dart';
 
 class SliverAppbarPlayWidget extends StatelessWidget {
   const SliverAppbarPlayWidget({
     super.key,
+    required this.item,
   });
+  final TrackEntity item;
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +31,15 @@ class SliverAppbarPlayWidget extends StatelessWidget {
           alignment: Alignment.center,
           child: Container(
             width: size.width * 0.7,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: NetworkImage(
-                  "https://mrwallpaper.com/images/thumbnail/alan-walker-poster-yazitmrmam8u88tj.jpg",
+                  item.imagePath,
                 ),
               ),
               color: Colors.indigo,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(150),
                 bottomRight: Radius.circular(150),
               ),
