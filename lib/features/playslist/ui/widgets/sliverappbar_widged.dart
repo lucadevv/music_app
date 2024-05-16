@@ -5,6 +5,7 @@ import 'package:music_app/features/playslist/ui/bloc/play_list/playlist_bloc.dar
 import 'package:music_app/shared/const/svg_icon.dart';
 import 'package:music_app/shared/widgets/circle_loading_widget.dart';
 import 'package:music_app/shared/widgets/linear_loading_widget.dart';
+import 'package:shimmer/shimmer.dart';
 
 class SliverAppbarWidget extends StatelessWidget {
   const SliverAppbarWidget({
@@ -116,41 +117,45 @@ class SliverAppbarLoadingWidget extends StatelessWidget {
         )
       ],
       flexibleSpace: FlexibleSpaceBar(
-        background: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.7),
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(16),
-              bottomRight: Radius.circular(16),
-            ),
-          ),
-          child: const Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 48),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        LinearLoadingWidget(height: 20, width: 150),
-                        SizedBox(height: 10),
-                        LinearLoadingWidget(height: 10, width: 100),
-                      ],
-                    ),
-                    Spacer(),
-                    CircleLoadingWidget(height: 40, width: 40),
-                    SizedBox(width: 12),
-                    CircleLoadingWidget(height: 60, width: 60)
-                  ],
-                ),
+        background: Shimmer.fromColors(
+          baseColor: Colors.grey.withOpacity(0.5),
+          highlightColor: Colors.white.withOpacity(0.5),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.7),
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(16),
+                bottomRight: Radius.circular(16),
               ),
-            ],
+            ),
+            child: const Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 48),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          LinearLoadingWidget(height: 20, width: 150),
+                          SizedBox(height: 10),
+                          LinearLoadingWidget(height: 10, width: 100),
+                        ],
+                      ),
+                      Spacer(),
+                      CircleLoadingWidget(height: 40, width: 40),
+                      SizedBox(width: 12),
+                      CircleLoadingWidget(height: 60, width: 60)
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -11,6 +11,7 @@ class ItemMusicWidget extends StatelessWidget {
   });
 
   final TrackEntity trackEntity;
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
