@@ -7,8 +7,8 @@ class HomeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class FetchPlayListEvent extends HomeEvent {
-  const FetchPlayListEvent();
+class FetchPlayListHomeEvent extends HomeEvent {
+  const FetchPlayListHomeEvent();
   @override
   List<Object> get props => [];
 }

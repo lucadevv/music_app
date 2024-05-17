@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_app/features/playslist/data/network/datasource/datasource_ntw.dart';
 import 'package:music_app/features/playslist/data/repository/play_list_screen_repository_impl.dart';
 import 'package:music_app/features/playslist/ui/bloc/play_list/playlist_bloc.dart';
+import 'package:music_app/features/playslist/ui/bloc/player/player_bloc.dart';
 import 'package:music_app/features/playslist/ui/widgets/mini_reproducto_widget.dart';
 import 'package:music_app/features/playslist/ui/widgets/sliverappbar_widged.dart';
 import 'package:music_app/features/playslist/ui/widgets/sliverlist_widget.dart';
@@ -22,17 +23,13 @@ class PlaysListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          lazy: false,
-          create: (context) => PlaylistBloc(
-            PlayListScreenRepositorImpl(
-              datasourcePlayListNtwDb: DatasourcePlayListNtwDb(),
-            ),
-          )..add(const FetchPlayListEvent()),
+    return BlocProvider(
+      lazy: false,
+      create: (context) => PlaylistBloc(
+        PlayListScreenRepositorImpl(
+          datasourcePlayListNtwDb: DatasourcePlayListNtwDb(),
         ),
-      ],
+      )..add(const FetchPlayListEvent()),
       child: Scaffold(
         body: SizedBox(
           height: size.height,
@@ -78,20 +75,28 @@ class PlaysListScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Align(
-                alignment: const AlignmentDirectional(0, 1),
-                child: SizedBox(
-                  height: size.height * 0.1,
-                  width: size.width,
-                  child: const Stack(
-                    children: [
-                      ClipRRect(
-                        child: BackdropFilterWidget(sgx: 100, sgy: 100),
+              BlocBuilder<PlayerBloc, PlayerState>(
+                builder: (context, state) {
+                  if (state.reproductorStatus == ReproductorStatus.initial) {
+                    return const SizedBox();
+                  } else {
+                    return Align(
+                      alignment: const AlignmentDirectional(0, 1),
+                      child: SizedBox(
+                        height: size.height * 0.1,
+                        width: size.width,
+                        child: const Stack(
+                          children: [
+                            ClipRRect(
+                              child: BackdropFilterWidget(sgx: 100, sgy: 100),
+                            ),
+                            MiniReproductorWidget(),
+                          ],
+                        ),
                       ),
-                      MiniReproductorWidget()
-                    ],
-                  ),
-                ),
+                    );
+                  }
+                },
               )
             ],
           ),

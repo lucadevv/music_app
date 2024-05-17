@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:music_app/features/playslist/ui/bloc/play_list/playlist_bloc.dart';
-import 'package:music_app/features/playslist/ui/bloc/reproductor/reproductor_bloc.dart';
+import 'package:music_app/features/playslist/ui/bloc/player/player_bloc.dart';
 import 'package:music_app/shared/widgets/item_music_widget.dart';
 import 'package:music_app/shared/widgets/linear_loading_widget.dart';
 import 'package:shimmer/shimmer.dart';
@@ -16,33 +15,27 @@ class SliverListWidget extends StatefulWidget {
 }
 
 class _SliverListWidgetState extends State<SliverListWidget> {
-  int? indexSelect;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PlaylistBloc, PlaylistState>(
+    return BlocBuilder<PlayerBloc, PlayerState>(
       builder: (context, state) {
-        if (state.playListStatus == PlayListStatus.loading) {
+        if (state.status == PlayerStatus.loading) {
           return const SliverListLoadingWidget();
-        } else if (state.playListStatus == PlayListStatus.sucess) {
+        } else if (state.status == PlayerStatus.sucess) {
           return SliverList.builder(
-            itemCount: state.playList.trackList.length,
+            itemCount: state.tracksList.length,
             itemBuilder: (context, index) {
-              final item = state.playList.trackList[index];
+              final item = state.tracksList[index];
+              final indexItem = state.index;
               return Padding(
                 padding: const EdgeInsets.only(bottom: 12, right: 16, left: 16),
                 child: ItemMusicWidget(
                   trackEntity: item,
-                  isSelect: indexSelect == index,
+                  isSelect: indexItem == index,
                   ontap: () {
-                    context
-                        .read<ReproductorBloc>()
-                        .add(PlayerPLayEvent(urlMp3: item.urlMp3));
-                    context
-                        .read<PlaylistBloc>()
-                        .add(FetchPlayByIdEvent(id: item.id));
-                    setState(() {
-                      indexSelect = index;
-                    });
+                    context.read<PlayerBloc>()
+                      ..add(PlayEvent(urlMp3: item.urlMp3, index: index))
+                      ..add(FetcTrackIdEvent(model: item));
                   },
                 ),
               );

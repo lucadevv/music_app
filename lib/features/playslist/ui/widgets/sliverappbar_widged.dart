@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:music_app/features/playslist/ui/bloc/play_list/playlist_bloc.dart';
+import 'package:music_app/features/playslist/ui/bloc/player/player_bloc.dart';
 import 'package:music_app/shared/const/svg_icon.dart';
 import 'package:music_app/shared/widgets/circle_loading_widget.dart';
 import 'package:music_app/shared/widgets/linear_loading_widget.dart';
@@ -21,6 +22,8 @@ class SliverAppbarWidget extends StatelessWidget {
         if (state.playListStatus == PlayListStatus.loading) {
           return SliverAppbarLoadingWidget(size: size);
         } else if (state.playListStatus == PlayListStatus.sucess) {
+          final listModel = state.playList.trackList;
+          context.read<PlayerBloc>().add(FetcTracksEvent(listModel: listModel));
           return SliverAppBar(
             expandedHeight: size.height * 0.3,
             backgroundColor: Colors.transparent,
@@ -76,8 +79,24 @@ class SliverAppbarWidget extends StatelessWidget {
                             IconSvg.favorite,
                           ),
                           const SizedBox(width: 12),
-                          SvgPicture.asset(
-                            IconSvg.playBtn,
+                          InkWell(
+                            onTap: () {
+                              context.read<PlayerBloc>()
+                                ..add(ToggleEnvet())
+                                ..add(PlayEvent(
+                                    urlMp3: listModel.first.urlMp3, index: 0))
+                                ..add(FetcTrackIdEvent(model: listModel.first));
+                            },
+                            child: BlocBuilder<PlayerBloc, PlayerState>(
+                              builder: (context, state) {
+                                return SvgPicture.asset(
+                                  state.reproductorStatus ==
+                                          ReproductorStatus.play
+                                      ? IconSvg.pauseBtn
+                                      : IconSvg.playBtn,
+                                );
+                              },
+                            ),
                           ),
                         ],
                       ),

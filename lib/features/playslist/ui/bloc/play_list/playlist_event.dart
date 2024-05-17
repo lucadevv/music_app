@@ -12,10 +12,3 @@ class FetchPlayListEvent extends PlaylistEvent {
   @override
   List<Object> get props => [];
 }
-
-class FetchPlayByIdEvent extends PlaylistEvent {
-  final int id;
-  const FetchPlayByIdEvent({required this.id});
-  @override
-  List<Object> get props => [];
-}

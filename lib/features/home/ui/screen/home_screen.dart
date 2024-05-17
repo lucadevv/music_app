@@ -9,6 +9,8 @@ import 'package:music_app/features/home/ui/widgets/category_widget.dart';
 import 'package:music_app/features/home/ui/widgets/playlist_widget.dart';
 import 'package:music_app/features/home/ui/widgets/search_widget.dart';
 import 'package:music_app/features/home/ui/widgets/yourfavorite_widget.dart';
+import 'package:music_app/features/playslist/ui/bloc/player/player_bloc.dart';
+import 'package:music_app/features/playslist/ui/widgets/mini_reproducto_widget.dart';
 
 import 'package:music_app/shared/widgets/backdropfilter_widget.dart';
 import 'package:music_app/shared/widgets/ellipse_widget.dart';
@@ -21,13 +23,17 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final textTheme = Theme.of(context).textTheme;
-    return BlocProvider(
-      lazy: false,
-      create: (context) => HomeBloc(
-        playListHomeRepository: PlayListHomeRepositoryImpl(
-          datasourceNtwBdHome: DatasourceNtwBdHome(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          lazy: false,
+          create: (context) => HomeBloc(
+            playListHomeRepository: PlayListHomeRepositoryImpl(
+              datasourceNtwBdHome: DatasourceNtwBdHome(),
+            ),
+          )..add(const FetchPlayListHomeEvent()),
         ),
-      )..add(const FetchPlayListEvent()),
+      ],
       child: Scaffold(
         body: SizedBox(
           height: size.height,
@@ -64,6 +70,32 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              BlocBuilder<PlayerBloc, PlayerState>(
+                builder: (context, state) {
+                  if (state.reproductorStatus == ReproductorStatus.initial) {
+                    return const SizedBox();
+                  } else {
+                    return Align(
+                      alignment: const AlignmentDirectional(0, 1),
+                      child: SizedBox(
+                        height: size.height * 0.1,
+                        width: size.width,
+                        child: const Stack(
+                          children: [
+                            ClipRRect(
+                              child: BackdropFilterWidget(
+                                sgx: 100,
+                                sgy: 100,
+                              ),
+                            ),
+                            MiniReproductorWidget(),
+                          ],
+                        ),
+                      ),
+                    );
+                  }
+                },
+              )
             ],
           ),
         ),

@@ -17,12 +17,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             homeStatus: HomeStatus.initial,
           ),
         ) {
-    on<FetchPlayListEvent>(fetchPlayListEventState);
+    on<FetchPlayListHomeEvent>(fetchPlayListEventState);
     on<HelloEvent>(helloEventState);
   }
 
   Future<void> fetchPlayListEventState(
-      FetchPlayListEvent event, Emitter<HomeState> emit) async {
+      FetchPlayListHomeEvent event, Emitter<HomeState> emit) async {
     emit(state.copyWith(homeStatus: HomeStatus.loading));
 
     try {
