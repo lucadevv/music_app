@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:music_app/features/playslist/domain/entities/track_entity.dart';
 import 'package:music_app/shared/const/app_color.dart';
+import 'package:music_app/shared/widgets/linear_loading_widget.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ItemMusicWidget extends StatelessWidget {
   const ItemMusicWidget({
@@ -20,25 +23,24 @@ class ItemMusicWidget extends StatelessWidget {
 
     return AnimatedContainer(
       height: isSelect ? 80 : 60,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 100),
       child: Stack(
         children: [
           Row(
             children: [
               AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
+                duration: const Duration(milliseconds: 100),
                 height: isSelect ? 80 : 60,
                 width: isSelect ? 80 : 60,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: trackEntity.imagePath.isNotEmpty
-                        ? NetworkImage(trackEntity.imagePath)
-                        : const NetworkImage(
-                            "https://www.ncenet.com/wp-content/uploads/2020/04/No-image-found.jpg",
-                          ),
-                    fit: BoxFit.cover,
+                child: CachedNetworkImage(
+                  key: UniqueKey(),
+                  imageUrl: trackEntity.imagePath,
+                  placeholder: (context, url) => Shimmer.fromColors(
+                    baseColor: Colors.grey.withOpacity(0.5),
+                    highlightColor: Colors.white.withOpacity(0.5),
+                    child: const LinearLoadingWidget(height: 60, width: 60),
                   ),
-                  borderRadius: BorderRadius.circular(8),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
               const SizedBox(width: 8),
@@ -77,18 +79,12 @@ class ItemMusicWidget extends StatelessWidget {
               ),
             ],
           ),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(16),
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                // onTap: () {
-                //   //context.pushNamed(PlayScreen.name, extra: trackEntity);
-                // },
-                onTap: ontap,
-                child: Container(
-                  color: Colors.transparent,
-                ),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: ontap,
+              child: Container(
+                color: Colors.transparent,
               ),
             ),
           )

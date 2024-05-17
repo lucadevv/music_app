@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:music_app/features/play/ui/widgets/sliverappbar_play_widget.dart';
 import 'package:music_app/features/play/ui/widgets/sliverbox_play_widget.dart';
 import 'package:music_app/features/playslist/domain/entities/track_entity.dart';
