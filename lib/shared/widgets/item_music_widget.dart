@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:music_app/features/play/ui/screen/play_screen.dart';
 import 'package:music_app/features/playslist/domain/entities/track_entity.dart';
@@ -8,23 +9,29 @@ class ItemMusicWidget extends StatelessWidget {
   const ItemMusicWidget({
     super.key,
     required this.trackEntity,
+    required this.ontap,
+    required this.isSelect,
   });
 
   final TrackEntity trackEntity;
+  final VoidCallback ontap;
+  final bool isSelect;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return SizedBox(
-      height: 60,
+    return AnimatedContainer(
+      height: isSelect ? 80 : 60,
+      duration: const Duration(milliseconds: 300),
       child: Stack(
         children: [
           Row(
             children: [
-              Container(
-                height: 60,
-                width: 60,
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                height: isSelect ? 80 : 60,
+                width: isSelect ? 80 : 60,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: trackEntity.imagePath.isNotEmpty
@@ -49,6 +56,9 @@ class ItemMusicWidget extends StatelessWidget {
                       style: textTheme.displayLarge!.copyWith(
                         fontSize: 18,
                         overflow: TextOverflow.ellipsis,
+                        color: isSelect ? Colors.green : Colors.white,
+                        fontWeight:
+                            isSelect ? FontWeight.bold : FontWeight.w500,
                       ),
                     ),
                     const SizedBox(width: 6),
@@ -61,7 +71,6 @@ class ItemMusicWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              const Spacer(),
               Text(
                 trackEntity.duration.toString(),
                 style: textTheme.displayMedium!.copyWith(
@@ -76,10 +85,10 @@ class ItemMusicWidget extends StatelessWidget {
             child: Material(
               color: Colors.transparent,
               child: InkWell(
-                onTap: () {
-                  context.pushNamed(PlayScreen.name, extra: trackEntity);
-                  // context.goNamed(PlayScreen.name, extra: 10);
-                },
+                // onTap: () {
+                //   //context.pushNamed(PlayScreen.name, extra: trackEntity);
+                // },
+                onTap: ontap,
                 child: Container(
                   color: Colors.transparent,
                 ),

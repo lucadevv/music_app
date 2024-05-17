@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_app/features/playslist/data/network/datasource/datasource_ntw.dart';
 import 'package:music_app/features/playslist/data/repository/play_list_screen_repository_impl.dart';
 import 'package:music_app/features/playslist/ui/bloc/play_list/playlist_bloc.dart';
+import 'package:music_app/features/playslist/ui/widgets/mini_reproducto_widget.dart';
 import 'package:music_app/features/playslist/ui/widgets/sliverappbar_widged.dart';
 import 'package:music_app/features/playslist/ui/widgets/sliverlist_widget.dart';
 import 'package:music_app/shared/widgets/backdropfilter_widget.dart';
@@ -20,6 +21,7 @@ class PlaysListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return BlocProvider(
       lazy: false,
       create: (context) => PlaylistBloc(
@@ -57,14 +59,34 @@ class PlaysListScreen extends StatelessWidget {
               SizedBox(
                 height: size.height,
                 width: size.width,
-                child: const CustomScrollView(
+                child: CustomScrollView(
                   slivers: [
-                    SliverAppbarWidget(),
-                    SliverToBoxAdapter(
+                    const SliverAppbarWidget(),
+                    const SliverToBoxAdapter(
                       child: SizedBox(height: 12),
                     ),
-                    SliverListWidget()
+                    const SliverListWidget(),
+                    SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: size.height * 0.1,
+                      ),
+                    ),
                   ],
+                ),
+              ),
+              Align(
+                alignment: const AlignmentDirectional(0, 1),
+                child: SizedBox(
+                  height: size.height * 0.1,
+                  width: size.width,
+                  child: const Stack(
+                    children: [
+                      ClipRRect(
+                        child: BackdropFilterWidget(sgx: 100, sgy: 100),
+                      ),
+                      MiniReproductorWidget()
+                    ],
+                  ),
                 ),
               )
             ],

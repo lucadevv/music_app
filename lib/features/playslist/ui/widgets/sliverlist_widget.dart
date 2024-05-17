@@ -5,11 +5,17 @@ import 'package:music_app/shared/widgets/item_music_widget.dart';
 import 'package:music_app/shared/widgets/linear_loading_widget.dart';
 import 'package:shimmer/shimmer.dart';
 
-class SliverListWidget extends StatelessWidget {
+class SliverListWidget extends StatefulWidget {
   const SliverListWidget({
     super.key,
   });
 
+  @override
+  State<SliverListWidget> createState() => _SliverListWidgetState();
+}
+
+class _SliverListWidgetState extends State<SliverListWidget> {
+  int? indexSelect;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PlaylistBloc, PlaylistState>(
@@ -55,11 +61,19 @@ class SliverListWidget extends StatelessWidget {
             itemCount: state.playList.trackList.length,
             itemBuilder: (context, index) {
               final item = state.playList.trackList[index];
-
               return Padding(
                 padding: const EdgeInsets.only(bottom: 12, right: 16, left: 16),
                 child: ItemMusicWidget(
                   trackEntity: item,
+                  isSelect: indexSelect == index,
+                  ontap: () {
+                    context
+                        .read<PlaylistBloc>()
+                        .add(FetchPlayByIdEvent(id: item.id));
+                    setState(() {
+                      indexSelect = index;
+                    });
+                  },
                 ),
               );
             },
@@ -74,6 +88,8 @@ class SliverListWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 12, right: 16, left: 16),
                 child: ItemMusicWidget(
                   trackEntity: item,
+                  ontap: () {},
+                  isSelect: indexSelect == index,
                 ),
               );
             },
