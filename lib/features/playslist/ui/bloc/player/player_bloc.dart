@@ -4,8 +4,6 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:music_app/features/playslist/domain/entities/track_entity.dart';
-import 'package:music_app/features/playslist/domain/repositories/playlist_screen_repository.dart';
-
 part 'player_event.dart';
 part 'player_state.dart';
 
@@ -109,5 +107,11 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
       await audioPlayer.resume();
       emit(state.copyWith(reproductorStatus: ReproductorStatus.play));
     }
+  }
+
+  @override
+  Future<void> close() {
+    audioPlayer.dispose();
+    return super.close();
   }
 }

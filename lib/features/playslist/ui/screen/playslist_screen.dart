@@ -82,9 +82,10 @@ class PlaysListScreen extends StatelessWidget {
                   } else {
                     return Align(
                       alignment: const AlignmentDirectional(0, 1),
-                      child: SizedBox(
+                      child: AnimatedContainer(
                         height: size.height * 0.1,
                         width: size.width,
+                        duration: const Duration(milliseconds: 1000),
                         child: const Stack(
                           children: [
                             ClipRRect(

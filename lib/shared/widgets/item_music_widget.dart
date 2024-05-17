@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:music_app/features/playslist/domain/entities/track_entity.dart';
 import 'package:music_app/shared/const/app_color.dart';
+import 'package:music_app/shared/const/svg_icon.dart';
 import 'package:music_app/shared/widgets/linear_loading_widget.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -70,6 +72,11 @@ class ItemMusicWidget extends StatelessWidget {
                   ],
                 ),
               ),
+              SvgPicture.asset(
+                IconSvg.favorite,
+                height: 18,
+              ),
+              const SizedBox(width: 8),
               Text(
                 trackEntity.duration.toString(),
                 style: textTheme.displayMedium!.copyWith(
