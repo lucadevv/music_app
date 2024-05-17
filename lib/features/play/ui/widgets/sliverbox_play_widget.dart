@@ -30,6 +30,7 @@ class _SliverBoxPlayWidgetState extends State<SliverBoxPlayWidget> {
     audioPlayer.onDurationChanged.listen((newDuration) {
       totalDuration = newDuration;
     });
+
     audioPlayer.onPlayerStateChanged.listen((state) {
       setState(() {
         isPlaying = state == PlayerState.playing;
@@ -89,6 +90,7 @@ class _SliverBoxPlayWidgetState extends State<SliverBoxPlayWidget> {
               StreamBuilder<Duration>(
                 stream: audioPlayer.onPositionChanged,
                 builder: (context, snapshot) {
+                  print("--------$totalDuration");
                   final currentDuration = snapshot.data ?? Duration.zero;
                   double progress = currentDuration.inMilliseconds.toDouble() /
                       (totalDuration.inMilliseconds.toDouble() + 1);

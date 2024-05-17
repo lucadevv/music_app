@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_app/features/playslist/ui/bloc/play_list/playlist_bloc.dart';
+import 'package:music_app/features/playslist/ui/bloc/reproductor/reproductor_bloc.dart';
 import 'package:music_app/shared/widgets/item_music_widget.dart';
 import 'package:music_app/shared/widgets/linear_loading_widget.dart';
 import 'package:shimmer/shimmer.dart';
@@ -67,6 +68,10 @@ class _SliverListWidgetState extends State<SliverListWidget> {
                   trackEntity: item,
                   isSelect: indexSelect == index,
                   ontap: () {
+                    context
+                        .read<ReproductorBloc>()
+                        .add(PlayerPLayEvent(urlMp3: item.urlMp3));
+
                     context
                         .read<PlaylistBloc>()
                         .add(FetchPlayByIdEvent(id: item.id));

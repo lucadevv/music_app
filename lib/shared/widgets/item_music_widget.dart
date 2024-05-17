@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:go_router/go_router.dart';
-import 'package:music_app/features/play/ui/screen/play_screen.dart';
 import 'package:music_app/features/playslist/domain/entities/track_entity.dart';
 import 'package:music_app/shared/const/app_color.dart';
 
