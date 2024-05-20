@@ -78,7 +78,7 @@ class ItemMusicWidget extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                trackEntity.duration.toString(),
+                formatDuration(trackEntity.duration),
                 style: textTheme.displayMedium!.copyWith(
                   fontWeight: FontWeight.normal,
                   color: AppColors.white,
@@ -98,5 +98,11 @@ class ItemMusicWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String formatDuration(int totalSeconds) {
+    int minutes = totalSeconds ~/ 60;
+    int seconds = totalSeconds % 60;
+    return '$minutes:${seconds.toString().padLeft(2, '0')}';
   }
 }
