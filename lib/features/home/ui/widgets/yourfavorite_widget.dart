@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_app/features/home/ui/bloc/favorite_music/favorite_music_bloc.dart';
+import 'package:music_app/features/playslist/ui/bloc/player/player_bloc.dart';
+import 'package:music_app/features/playslist/ui/widgets/sliverlist_widget.dart';
+import 'package:music_app/shared/widgets/item_music_widget.dart';
 
 class YourFavoriteWidget extends StatelessWidget {
   const YourFavoriteWidget({
@@ -8,7 +13,8 @@ class YourFavoriteWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    return Expanded(
+    return SizedBox(
+      height: 500,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -20,14 +26,48 @@ class YourFavoriteWidget extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           Expanded(
-            child: ListView.builder(
-              padding: EdgeInsets.zero,
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return const Padding(
-                  padding: EdgeInsets.only(bottom: 12),
-                  //child: ItemMusicWidget(),
-                );
+            child: BlocBuilder<FavoriteMusicBloc, FavoriteMusicState>(
+              builder: (context, state) {
+                if (state.status == FavoriteMusicStatus.loading) {
+                  return const SliverListLoadingWidget();
+                } else if (state.status == FavoriteMusicStatus.sucess) {
+                  if (state.favoriteListMusic.isEmpty) {
+                    return const Center(
+                      child: Text("Empty List"),
+                    );
+                  } else {
+                    final trackList = state.favoriteListMusic
+                        .map((favorite) => favorite.track)
+                        .toList();
+
+                    return ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: trackList.length,
+                      itemBuilder: (context, index) {
+                        final item = trackList[index];
+                        final music =
+                            context.watch<PlayerBloc>().state.currentTrack;
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: ItemMusicWidget(
+                            trackEntity: item,
+                            ontap: () {
+                              context.read<PlayerBloc>()
+                                ..add(PlayEvent(
+                                    urlMp3: item.urlMp3, index: index))
+                                ..add(FetcTrackIdEvent(model: item));
+                            },
+                            isSelect: item.id == music.id,
+                          ),
+                        );
+                      },
+                    );
+                  }
+                } else {
+                  return const Center(
+                    child: Text("error"),
+                  );
+                }
               },
             ),
           ),

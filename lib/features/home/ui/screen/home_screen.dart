@@ -1,6 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:music_app/features/home/data/network/datasource/datasource_ntw.dart';
 import 'package:music_app/features/home/data/repository/playlist_home_repository_impl.dart';
 import 'package:music_app/features/home/ui/bloc/home/home_bloc.dart';
@@ -63,9 +64,27 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(height: 48),
                       const CategoryWidget(),
                       const SizedBox(height: 24),
-                      const PlayListhWidget(),
-                      const SizedBox(height: 48),
-                      const YourFavoriteWidget(),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              const PlayListhWidget(),
+                              const SizedBox(height: 48),
+                              const YourFavoriteWidget(),
+                              BlocBuilder<PlayerBloc, PlayerState>(
+                                builder: (context, state) {
+                                  return Container(
+                                    height: state.reproductorStatus ==
+                                            ReproductorStatus.initial
+                                        ? size.height * 0.0
+                                        : size.height * 0.1,
+                                  );
+                                },
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

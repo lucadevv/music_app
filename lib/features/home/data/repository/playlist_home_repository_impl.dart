@@ -5,7 +5,9 @@ import 'package:music_app/features/home/domain/repository/playlist_home_reposito
 class PlayListHomeRepositoryImpl extends PlayListHomeRepository {
   final DatasourceNtwBdHome datasourceNtwBdHome;
 
-  PlayListHomeRepositoryImpl({required this.datasourceNtwBdHome});
+  PlayListHomeRepositoryImpl({
+    required this.datasourceNtwBdHome,
+  });
   @override
   Future<List<PlayListHomeEntity>> fetchPlayListHome() async {
     final response = await datasourceNtwBdHome.fetchPlayList();

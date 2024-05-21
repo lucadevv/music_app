@@ -41,8 +41,8 @@ class PlayerState extends Equatable {
         index: index ?? this.index,
       );
   factory PlayerState.initial() {
-    return PlayerState(
-      tracksList: const [],
+    return const PlayerState(
+      tracksList: [],
       currentPosition: Duration.zero,
       totalPosition: Duration.zero,
       status: PlayerStatus.initial,

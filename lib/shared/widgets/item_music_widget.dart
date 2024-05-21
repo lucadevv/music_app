@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:music_app/features/home/domain/entites/your_favorite_music_entity.dart';
+import 'package:music_app/features/home/ui/bloc/favorite_music/favorite_music_bloc.dart';
 import 'package:music_app/features/playslist/domain/entities/track_entity.dart';
 import 'package:music_app/shared/const/app_color.dart';
 import 'package:music_app/shared/const/svg_icon.dart';
@@ -47,34 +50,76 @@ class ItemMusicWidget extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      trackEntity.title,
-                      maxLines: 1,
-                      style: textTheme.displayLarge!.copyWith(
-                        fontSize: 18,
-                        overflow: TextOverflow.ellipsis,
-                        color: isSelect ? Colors.green : Colors.white,
-                        fontWeight:
-                            isSelect ? FontWeight.bold : FontWeight.w500,
-                      ),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: ontap,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          trackEntity.title,
+                          maxLines: 1,
+                          style: textTheme.displayLarge!.copyWith(
+                            fontSize: 18,
+                            overflow: TextOverflow.ellipsis,
+                            color: isSelect ? Colors.green : Colors.white,
+                            fontWeight:
+                                isSelect ? FontWeight.bold : FontWeight.w500,
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          trackEntity.author,
+                          style: textTheme.displayMedium!.copyWith(
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(width: 6),
-                    Text(
-                      trackEntity.author,
-                      style: textTheme.displayMedium!.copyWith(
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
-              SvgPicture.asset(
-                IconSvg.favorite,
-                height: 18,
+              BlocBuilder<FavoriteMusicBloc, FavoriteMusicState>(
+                builder: (context, state) {
+                  final isFavorite = state.favoriteListMusic
+                      .any((favorite) => favorite.track.id == trackEntity.id);
+                  return ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        onTap: () {
+                          if (isFavorite) {
+                            context.read<FavoriteMusicBloc>().add(
+                                RemoveFavoriteMusicEvent(
+                                    model: YourFavoriteMusicEntity(
+                                        isFavorite: false,
+                                        track: trackEntity)));
+                          } else {
+                            context.read<FavoriteMusicBloc>()
+                              ..add(
+                                AddFavoriteMusicEvent(
+                                  model: YourFavoriteMusicEntity(
+                                      isFavorite: true, track: trackEntity),
+                                ),
+                              )
+                              ..add(const FetchAllFavoriteMusicEvent());
+                          }
+                        },
+                        child: SvgPicture.asset(
+                          IconSvg.favorite,
+                          height: 18,
+                          colorFilter: ColorFilter.mode(
+                            isFavorite ? Colors.red : Colors.grey,
+                            BlendMode.srcIn,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
               ),
               const SizedBox(width: 8),
               Text(
@@ -86,15 +131,15 @@ class ItemMusicWidget extends StatelessWidget {
               ),
             ],
           ),
-          Material(
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: ontap,
-              child: Container(
-                color: Colors.transparent,
-              ),
-            ),
-          )
+          // Material(
+          //   color: Colors.transparent,
+          //   child: InkWell(
+          //     onTap: ontap,
+          //     child: Container(
+          //       color: Colors.transparent,
+          //     ),
+          //   ),
+          // )
         ],
       ),
     );

@@ -1,4 +1,6 @@
-class TrackEntity {
+import 'package:equatable/equatable.dart';
+
+class TrackEntity extends Equatable {
   final int id;
   final String title;
   final String author;
@@ -6,7 +8,7 @@ class TrackEntity {
   final String urlMp3;
   final String imagePath;
 
-  TrackEntity({
+  const TrackEntity({
     required this.id,
     required this.title,
     required this.author,
@@ -15,11 +17,21 @@ class TrackEntity {
     required this.imagePath,
   });
 
-  TrackEntity.empty()
+  const TrackEntity.empty()
       : id = 0,
         title = "",
         author = "",
         duration = 0,
         urlMp3 = '',
         imagePath = "";
+
+  @override
+  List<Object?> get props => [
+        id,
+        title,
+        author,
+        duration,
+        urlMp3,
+        imagePath,
+      ];
 }
