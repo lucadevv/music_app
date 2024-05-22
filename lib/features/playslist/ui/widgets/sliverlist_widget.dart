@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_app/features/playslist/ui/bloc/play_list/playlist_bloc.dart';
 import 'package:music_app/features/playslist/ui/bloc/player/player_bloc.dart';
 import 'package:music_app/shared/widgets/item_music_widget.dart';
 import 'package:music_app/shared/widgets/linear_loading_widget.dart';
@@ -17,29 +18,33 @@ class SliverListWidget extends StatefulWidget {
 class _SliverListWidgetState extends State<SliverListWidget> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PlayerBloc, PlayerState>(
+    return BlocBuilder<PlaylistBloc, PlaylistState>(
       builder: (context, state) {
-        if (state.status == PlayerStatus.loading) {
+        if (state.playListStatus == PlayListStatus.loading) {
           return const SliverListLoadingWidget();
-        } else if (state.status == PlayerStatus.sucess) {
-          return SliverList.builder(
-            itemCount: state.tracksList.length,
-            itemBuilder: (context, index) {
-              final item = state.tracksList[index];
-              final indexItem = state.index;
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 12, right: 16, left: 16),
-                child: ItemMusicWidget(
-                  trackEntity: item,
-                  isSelect: indexItem == index,
-                  ontap: () {
-                    context.read<PlayerBloc>()
-                      ..add(PlayEvent(urlMp3: item.urlMp3, index: index))
-                      ..add(FetcTrackIdEvent(model: item));
-                  },
-                ),
-              );
-            },
+        } else if (state.playListStatus == PlayListStatus.sucess) {
+          return SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                final item = state.playList.trackList[index];
+                final music = context.watch<PlayerBloc>().state.currentTrack;
+
+                return Padding(
+                  padding:
+                      const EdgeInsets.only(bottom: 12, right: 16, left: 16),
+                  child: ItemMusicWidget(
+                    trackEntity: item,
+                    isSelect: music.id == item.id,
+                    ontap: () {
+                      context.read<PlayerBloc>()
+                        ..add(PlayEvent(urlMp3: item.urlMp3, index: index))
+                        ..add(FetcTrackIdEvent(model: item));
+                    },
+                  ),
+                );
+              },
+              childCount: state.playList.trackList.length,
+            ),
           );
         } else {
           return const SliverListLoadingWidget();

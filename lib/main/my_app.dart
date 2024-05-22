@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_app/config/routes/app_routes.dart';
@@ -8,16 +9,18 @@ import 'package:music_app/features/playslist/ui/bloc/player/player_bloc.dart';
 import 'package:music_app/shared/theme/dark_theme.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final AudioPlayer audioPlayer;
+  const MyApp({super.key, required this.audioPlayer});
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
           lazy: false,
-          create: (context) => PlayerBloc(),
+          create: (context) => PlayerBloc(audioPlayer: audioPlayer),
         ),
         BlocProvider(
+          lazy: false,
           create: (context) => FavoriteMusicBloc(
             favoriteMusicRepository: FavoriteMusicRepositoryImpl(
               datasourceMemorydbHome: DatasourceMemorydbHome(),

@@ -8,10 +8,10 @@ part 'player_event.dart';
 part 'player_state.dart';
 
 class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
-  final AudioPlayer audioPlayer = AudioPlayer();
+  final AudioPlayer audioPlayer;
 
   int currentTrackIndex = -1;
-  PlayerBloc() : super(PlayerState.initial()) {
+  PlayerBloc({required this.audioPlayer}) : super(PlayerState.initial()) {
     // Escucha los cambios de duración total del audio
     audioPlayer.onDurationChanged.listen((duration) {
       // ignore: invalid_use_of_visible_for_testing_member
@@ -64,6 +64,7 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
       await audioPlayer.setSourceUrl(event.urlMp3);
       await audioPlayer.play(UrlSource(event.urlMp3));
       currentTrackIndex = event.index;
+      print(currentTrackIndex);
       emit(state.copyWith(
         status: PlayerStatus.sucess,
         reproductorStatus: ReproductorStatus.play,

@@ -6,16 +6,11 @@ import 'package:music_app/features/playslist/ui/modal/show_music_modal.dart';
 import 'package:music_app/shared/const/app_color.dart';
 import 'package:music_app/shared/const/svg_icon.dart';
 
-class MiniReproductorWidget extends StatefulWidget {
+class MiniReproductorWidget extends StatelessWidget {
   const MiniReproductorWidget({
     super.key,
   });
 
-  @override
-  State<MiniReproductorWidget> createState() => _MiniReproductorWidgetState();
-}
-
-class _MiniReproductorWidgetState extends State<MiniReproductorWidget> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

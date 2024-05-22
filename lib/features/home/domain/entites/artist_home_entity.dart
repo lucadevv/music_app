@@ -24,4 +24,15 @@ class ArtistHomeEntity {
         imagePathMedium: db.pictureMedium,
         trackList: db.tracklist,
       );
+
+  factory ArtistHomeEntity.empty() {
+    return ArtistHomeEntity(
+      id: -1,
+      name: "",
+      url: "",
+      imagePathSmall: "",
+      imagePathMedium: "",
+      trackList: "",
+    );
+  }
 }

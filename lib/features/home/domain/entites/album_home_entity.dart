@@ -23,4 +23,14 @@ class AlbumHomeEntity {
         imagePathMedium: al.coverMedium,
         trackList: al.tracklist,
       );
+
+  factory AlbumHomeEntity.empty() {
+    return AlbumHomeEntity(
+      id: -1,
+      name: "",
+      imagePathSmall: "",
+      imagePathMedium: "",
+      trackList: "",
+    );
+  }
 }

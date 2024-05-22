@@ -39,6 +39,9 @@ class YourFavoriteWidget extends StatelessWidget {
                     final trackList = state.favoriteListMusic
                         .map((favorite) => favorite.track)
                         .toList();
+                    context
+                        .read<PlayerBloc>()
+                        .add(FetcTracksEvent(listModel: trackList));
 
                     return ListView.builder(
                       padding: EdgeInsets.zero,
@@ -52,10 +55,19 @@ class YourFavoriteWidget extends StatelessWidget {
                           child: ItemMusicWidget(
                             trackEntity: item,
                             ontap: () {
-                              context.read<PlayerBloc>()
-                                ..add(PlayEvent(
-                                    urlMp3: item.urlMp3, index: index))
-                                ..add(FetcTrackIdEvent(model: item));
+                              if (index == 0) {
+                                context.read<PlayerBloc>()
+                                  ..add(ToggleEnvet())
+                                  ..add(
+                                      PlayEvent(urlMp3: item.urlMp3, index: 0))
+                                  ..add(
+                                      FetcTrackIdEvent(model: trackList.first));
+                              } else {
+                                context.read<PlayerBloc>()
+                                  ..add(PlayEvent(
+                                      urlMp3: item.urlMp3, index: index))
+                                  ..add(FetcTrackIdEvent(model: item));
+                              }
                             },
                             isSelect: item.id == music.id,
                           ),
