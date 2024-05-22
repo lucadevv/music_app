@@ -32,9 +32,7 @@ class YourFavoriteWidget extends StatelessWidget {
                   return const SliverListLoadingWidget();
                 } else if (state.status == FavoriteMusicStatus.sucess) {
                   if (state.favoriteListMusic.isEmpty) {
-                    return const Center(
-                      child: Text("Empty List"),
-                    );
+                    return const Center(child: Text("Empty List"));
                   } else {
                     final trackList = state.favoriteListMusic
                         .map((favorite) => favorite.track)

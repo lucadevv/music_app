@@ -34,6 +34,7 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
     on<ToggleEnvet>(toggleEnvet);
     on<NextEvent>(nextEvent);
     on<PreviusEvent>(previusEvent);
+    on<SeekEvent>(seekEvent);
   }
   Future<void> fetcTracksEvent(
       FetcTracksEvent event, Emitter<PlayerState> emit) async {
@@ -110,9 +111,17 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
     }
   }
 
+  Future<void> seekEvent(SeekEvent event, Emitter<PlayerState> emit) async {
+    emit(state.copyWith(
+      currentPosition: event.seek,
+    ));
+    await audioPlayer.seek(event.seek);
+  }
+
   @override
   Future<void> close() {
     audioPlayer.dispose();
+    audioPlayer.stop();
     return super.close();
   }
 }

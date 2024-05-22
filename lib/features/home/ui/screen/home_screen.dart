@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_app/features/home/data/network/datasource/datasource_ntw.dart';
 import 'package:music_app/features/home/data/repository/playlist_home_repository_impl.dart';
 import 'package:music_app/features/home/ui/bloc/home/home_bloc.dart';
-import 'package:music_app/features/home/ui/bloc/search/search_bloc.dart';
 import 'package:music_app/features/home/ui/widgets/appbar_home_widget.dart';
 import 'package:music_app/features/home/ui/widgets/category_widget.dart';
 import 'package:music_app/features/home/ui/widgets/playlist_widget.dart';
 import 'package:music_app/features/home/ui/widgets/yourfavorite_widget.dart';
 import 'package:music_app/features/playslist/ui/bloc/player/player_bloc.dart';
 import 'package:music_app/features/playslist/ui/widgets/mini_reproducto_widget.dart';
+import 'package:music_app/shared/const/app_color.dart';
 
 class HomeScreen extends StatelessWidget {
   static const name = "home_screen";
@@ -41,6 +41,18 @@ class HomeScreen extends StatelessWidget {
             child: Stack(
               alignment: Alignment.center,
               children: [
+                Container(
+                  height: 200,
+                  width: 200,
+                  decoration:
+                      const BoxDecoration(shape: BoxShape.circle, boxShadow: [
+                    BoxShadow(
+                      color: AppColors.purpleTown,
+                      blurRadius: 100,
+                      spreadRadius: 50,
+                    )
+                  ]),
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: SizedBox(
@@ -50,32 +62,28 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         AppbarHomeWidget(textTheme: textTheme),
                         const SizedBox(height: 32),
-                        BlocBuilder<SearchBloc, SearchState>(
-                          builder: (context, state) {
-                            return Expanded(
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  children: [
-                                    const CategoryWidget(),
-                                    const SizedBox(height: 24),
-                                    const PlayListhWidget(),
-                                    const SizedBox(height: 48),
-                                    const YourFavoriteWidget(),
-                                    BlocBuilder<PlayerBloc, PlayerState>(
-                                      builder: (context, state) {
-                                        return Container(
-                                          height: state.reproductorStatus ==
-                                                  ReproductorStatus.initial
-                                              ? size.height * 0.0
-                                              : size.height * 0.1,
-                                        );
-                                      },
-                                    )
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                const CategoryWidget(),
+                                const SizedBox(height: 24),
+                                const PlayListhWidget(),
+                                const SizedBox(height: 48),
+                                const YourFavoriteWidget(),
+                                BlocBuilder<PlayerBloc, PlayerState>(
+                                  builder: (context, state) {
+                                    return Container(
+                                      height: state.reproductorStatus ==
+                                              ReproductorStatus.initial
+                                          ? size.height * 0.0
+                                          : size.height * 0.1,
+                                    );
+                                  },
+                                )
+                              ],
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -86,13 +94,9 @@ class HomeScreen extends StatelessWidget {
                     if (state.reproductorStatus == ReproductorStatus.initial) {
                       return const SizedBox();
                     } else {
-                      return Align(
-                        alignment: const AlignmentDirectional(0, 1),
-                        child: SizedBox(
-                          height: size.height * 0.1,
-                          width: size.width,
-                          child: const MiniReproductorWidget(),
-                        ),
+                      return const Align(
+                        alignment: AlignmentDirectional(0, 1),
+                        child: MiniReproductorWidget(),
                       );
                     }
                   },

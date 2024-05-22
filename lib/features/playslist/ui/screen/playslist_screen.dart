@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_app/features/playslist/data/network/datasource/datasource_ntw.dart';
 import 'package:music_app/features/playslist/data/repository/play_list_screen_repository_impl.dart';
@@ -7,6 +8,7 @@ import 'package:music_app/features/playslist/ui/bloc/player/player_bloc.dart';
 import 'package:music_app/features/playslist/ui/widgets/mini_reproducto_widget.dart';
 import 'package:music_app/features/playslist/ui/widgets/sliverappbar_widged.dart';
 import 'package:music_app/features/playslist/ui/widgets/sliverlist_widget.dart';
+import 'package:music_app/shared/const/app_color.dart';
 
 class PlaysListScreen extends StatelessWidget {
   static const name = "playslist_screen";
@@ -35,26 +37,21 @@ class PlaysListScreen extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              // const ElippseWidget(
-              //   height: 10,
-              //   width: 10,
-              //   right: 0,
-              //   left: 0,
-              //   top: -300,
-              //   bottom: 250,
-              // ),
-              // const ElippseWidget(
-              //   height: 10,
-              //   width: 10,
-              //   right: 0,
-              //   left: 0,
-              //   top: 500,
-              //   bottom: -500,
-              // ),
-              // const BackdropFilterWidget(
-              //   sgx: 200,
-              //   sgy: 200,
-              // ),
+              Align(
+                alignment: const AlignmentDirectional(0, 1.1),
+                child: Container(
+                  height: 220,
+                  width: 220,
+                  decoration:
+                      const BoxDecoration(shape: BoxShape.circle, boxShadow: [
+                    BoxShadow(
+                      color: AppColors.purpleTown,
+                      blurRadius: 100,
+                      spreadRadius: 50,
+                    )
+                  ]),
+                ),
+              ),
               SizedBox(
                 height: size.height,
                 width: size.width,

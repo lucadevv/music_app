@@ -81,11 +81,8 @@ class PlayListhWidget extends StatelessWidget {
                                 color: Colors.transparent,
                                 child: InkWell(
                                   onTap: () {
-                                    context.goNamed(
-                                      PlaysListScreen.name,
-                                      queryParameters: {"id": "5"},
-                                      extra: item.id,
-                                    );
+                                    context.goNamed(PlaysListScreen.name,
+                                        extra: item.id);
                                   },
                                   child: Container(
                                     height: 202,

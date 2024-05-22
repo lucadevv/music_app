@@ -36,3 +36,11 @@ class StopEvent extends PlayerEvent {}
 class NextEvent extends PlayerEvent {}
 
 class PreviusEvent extends PlayerEvent {}
+
+class SeekEvent extends PlayerEvent {
+  final Duration seek;
+
+  const SeekEvent({required this.seek});
+  @override
+  List<Object> get props => [seek];
+}

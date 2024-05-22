@@ -18,8 +18,8 @@ class ShowModalMusic extends StatelessWidget {
     return BlocBuilder<PlayerBloc, PlayerState>(
       builder: (context, state) {
         final model = state.currentTrack;
-        double progresss = state.currentPosition.inMilliseconds.toDouble() /
-            (state.totalPosition.inMilliseconds.toDouble() + 1);
+        // double progresss = state.currentPosition.inMilliseconds.toDouble() /
+        //     (state.totalPosition.inMilliseconds.toDouble() + 1);
         return ClipRRect(
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
@@ -30,7 +30,7 @@ class ShowModalMusic extends StatelessWidget {
             fit: StackFit.expand,
             children: [
               ImageFiltered(
-                imageFilter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+                imageFilter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
                 child: Image.network(
                   model.imagePath,
                   fit: BoxFit.cover,
@@ -43,10 +43,17 @@ class ShowModalMusic extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Container(
-                      height: 120,
-                      width: 120,
+                      height: 140,
+                      width: 140,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
+                        boxShadow: const [
+                          BoxShadow(
+                            color: AppColors.greyOne,
+                            blurRadius: 8,
+                            spreadRadius: 5,
+                          )
+                        ],
                         image: DecorationImage(
                           image: NetworkImage(model.imagePath),
                         ),
@@ -70,11 +77,26 @@ class ShowModalMusic extends StatelessWidget {
                     const SizedBox(height: 18),
                     Column(
                       children: [
-                        LinearProgressIndicator(
-                          value: progresss,
-                          color: AppColors.purpleOne,
-                          backgroundColor: Colors.grey[300],
+                        Slider(
+                          value: state.currentPosition.inSeconds.toDouble(),
+                          min: 0,
+                          max: state.totalPosition.inSeconds.toDouble(),
+                          onChanged: (value) {
+                            final newPosition =
+                                Duration(seconds: value.toInt());
+                            context
+                                .read<PlayerBloc>()
+                                .add(SeekEvent(seek: newPosition));
+                          },
+                          activeColor: AppColors.purpleTown,
+                          thumbColor: AppColors.pink,
+                          inactiveColor: AppColors.greyTown,
                         ),
+                        // LinearProgressIndicator(
+                        //   value: progresss,
+                        //   color: AppColors.purpleOne,
+                        //   backgroundColor: Colors.grey[300],
+                        // ),
                         const SizedBox(height: 8),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -19,7 +19,6 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          lazy: false,
           create: (context) => PlayerBloc(audioPlayer: audioPlayer),
         ),
         BlocProvider(

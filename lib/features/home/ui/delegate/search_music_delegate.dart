@@ -7,7 +7,7 @@ import 'package:music_app/shared/widgets/item_music_widget.dart';
 
 class CustomSearch extends SearchDelegate {
   @override
-  String get searchFieldLabel => "Buscar producto";
+  String get searchFieldLabel => "Search music, artist, alb...";
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
