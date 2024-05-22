@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:music_app/features/home/data/network/model/playlist_model_db.dart';
+import 'package:music_app/features/home/data/network/model/playlist_model/playlist_model_db.dart';
+import 'package:music_app/features/home/data/network/model/search_model/data_model_db.dart';
+import 'package:music_app/features/home/data/network/model/search_model/search_model_db.dart';
 
 class DatasourceNtwBdHome {
   final dio = Dio();
@@ -15,6 +17,18 @@ class DatasourceNtwBdHome {
       return modelList;
     } catch (e) {
       return [];
+    }
+  }
+
+  Stream<List<Data>> searchMusic({required String request}) async* {
+    try {
+      final response =
+          await dio.get("https://api.deezer.com/search?q=$request");
+
+      var data = SearchModelDb.fromJson(response.data);
+      yield data.data;
+    } catch (e) {
+      yield* Stream.error('Failed to fetch search results');
     }
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:music_app/features/home/ui/bloc/search/search_bloc.dart';
 import 'package:music_app/shared/const/app_color.dart';
 import 'package:music_app/shared/const/svg_icon.dart';
 
@@ -12,6 +14,9 @@ class SearchWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return TextFormField(
+      onChanged: (value) {
+        context.read<SearchBloc>().add(SearchMusicEvent(request: value));
+      },
       decoration: InputDecoration(
         hintText: 'Search song, playslist, artisr...',
         hintStyle: textTheme.displayMedium,

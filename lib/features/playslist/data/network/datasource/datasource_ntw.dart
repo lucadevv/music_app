@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:music_app/features/home/data/network/model/playlist_model_db.dart';
+import 'package:music_app/features/home/data/network/model/playlist_model/playlist_model_db.dart';
 
 class DatasourcePlayListNtwDb {
   final dio = Dio();

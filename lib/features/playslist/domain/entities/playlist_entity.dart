@@ -1,4 +1,4 @@
-import 'package:music_app/features/home/data/network/model/playlist_model_db.dart';
+import 'package:music_app/features/home/data/network/model/playlist_model/playlist_model_db.dart';
 import 'package:music_app/features/playslist/domain/entities/track_entity.dart';
 
 class PlayListEntity {

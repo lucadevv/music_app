@@ -1,4 +1,4 @@
-import 'package:music_app/features/home/data/network/model/song_model.dart';
+import 'package:music_app/features/home/data/network/model/playlist_model/song_model.dart';
 
 class Tracks {
   final List<SongModel> data;
