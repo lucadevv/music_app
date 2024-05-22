@@ -1,10 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:music_app/features/playslist/ui/bloc/player/player_bloc.dart';
 import 'package:music_app/shared/const/app_color.dart';
 import 'package:music_app/shared/const/svg_icon.dart';
-import 'package:music_app/shared/widgets/backdropfilter_widget.dart';
 
 class ShowModalMusic extends StatelessWidget {
   const ShowModalMusic({
@@ -28,19 +29,12 @@ class ShowModalMusic extends StatelessWidget {
             alignment: Alignment.center,
             fit: StackFit.expand,
             children: [
-              ColorFiltered(
-                colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.7),
-                  BlendMode.darken,
-                ),
+              ImageFiltered(
+                imageFilter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
                 child: Image.network(
                   model.imagePath,
                   fit: BoxFit.cover,
                 ),
-              ),
-              const BackdropFilterWidget(
-                sgx: 50,
-                sgy: 50,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),

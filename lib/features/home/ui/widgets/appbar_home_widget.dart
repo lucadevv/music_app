@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:music_app/features/home/ui/delegate/search_music_delegate.dart';
 import 'package:music_app/shared/const/app_color.dart';
 import 'package:music_app/shared/const/svg_icon.dart';
 
@@ -34,7 +35,9 @@ class AppbarHomeWidget extends StatelessWidget implements PreferredSizeWidget {
           ),
           const Spacer(),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              showSearch(context: context, delegate: CustomSearch());
+            },
             child: SvgPicture.asset(
               IconSvg.search,
               height: 30,

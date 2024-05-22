@@ -21,10 +21,12 @@ class MiniReproductorWidget extends StatelessWidget {
         final model = state.currentTrack;
         double progresss = state.currentPosition.inMilliseconds.toDouble() /
             (state.totalPosition.inMilliseconds.toDouble() + 1);
-
-        return SizedBox(
+        return Container(
           height: size.height * 0.1,
           width: size.width,
+          decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.9),
+          ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(

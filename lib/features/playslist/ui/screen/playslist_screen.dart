@@ -7,8 +7,6 @@ import 'package:music_app/features/playslist/ui/bloc/player/player_bloc.dart';
 import 'package:music_app/features/playslist/ui/widgets/mini_reproducto_widget.dart';
 import 'package:music_app/features/playslist/ui/widgets/sliverappbar_widged.dart';
 import 'package:music_app/features/playslist/ui/widgets/sliverlist_widget.dart';
-import 'package:music_app/shared/widgets/backdropfilter_widget.dart';
-import 'package:music_app/shared/widgets/ellipse_widget.dart';
 
 class PlaysListScreen extends StatelessWidget {
   static const name = "playslist_screen";
@@ -37,26 +35,26 @@ class PlaysListScreen extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              const ElippseWidget(
-                height: 10,
-                width: 10,
-                right: 0,
-                left: 0,
-                top: -300,
-                bottom: 250,
-              ),
-              const ElippseWidget(
-                height: 10,
-                width: 10,
-                right: 0,
-                left: 0,
-                top: 500,
-                bottom: -500,
-              ),
-              const BackdropFilterWidget(
-                sgx: 200,
-                sgy: 200,
-              ),
+              // const ElippseWidget(
+              //   height: 10,
+              //   width: 10,
+              //   right: 0,
+              //   left: 0,
+              //   top: -300,
+              //   bottom: 250,
+              // ),
+              // const ElippseWidget(
+              //   height: 10,
+              //   width: 10,
+              //   right: 0,
+              //   left: 0,
+              //   top: 500,
+              //   bottom: -500,
+              // ),
+              // const BackdropFilterWidget(
+              //   sgx: 200,
+              //   sgy: 200,
+              // ),
               SizedBox(
                 height: size.height,
                 width: size.width,
@@ -86,12 +84,14 @@ class PlaysListScreen extends StatelessWidget {
                         height: size.height * 0.1,
                         width: size.width,
                         duration: const Duration(milliseconds: 1000),
-                        child: const Stack(
+                        child: Stack(
                           children: [
-                            ClipRRect(
-                              child: BackdropFilterWidget(sgx: 100, sgy: 100),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(0.9),
+                              ),
                             ),
-                            MiniReproductorWidget(),
+                            const MiniReproductorWidget(),
                           ],
                         ),
                       ),
