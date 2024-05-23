@@ -89,18 +89,10 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                BlocBuilder<PlayerBloc, PlayerState>(
-                  builder: (context, state) {
-                    if (state.reproductorStatus == ReproductorStatus.initial) {
-                      return const SizedBox();
-                    } else {
-                      return const Align(
-                        alignment: AlignmentDirectional(0, 1),
-                        child: MiniReproductorWidget(),
-                      );
-                    }
-                  },
-                )
+                const Align(
+                  alignment: Alignment.bottomCenter,
+                  child: MiniReproductorWidget(),
+                ),
               ],
             ),
           ),

@@ -97,12 +97,12 @@ class ListSearchDelegate extends StatelessWidget {
           itemCount: trackEntities.length,
           itemBuilder: (context, index) {
             final item = TrackEntity.fromModel(state.searchList[index]);
-            List<TrackEntity> trackEntities = state.searchList
-                .map((model) => TrackEntity.fromModel(model))
-                .toList();
-            context
-                .read<PlayerBloc>()
-                .add(FetcTracksEvent(listModel: trackEntities));
+            // List<TrackEntity> trackEntities = state.searchList
+            //     .map((model) => TrackEntity.fromModel(model))
+            //     .toList();
+            // context
+            //     .read<PlayerBloc>()
+            //     .add(FetcTracksEvent(listModel: trackEntities));
             final currentMusicPlaying =
                 context.watch<PlayerBloc>().state.currentTrack;
             return Padding(
@@ -110,9 +110,9 @@ class ListSearchDelegate extends StatelessWidget {
               child: ItemMusicWidget(
                 trackEntity: item,
                 ontap: () {
-                  context.read<PlayerBloc>()
-                    ..add(PlayEvent(urlMp3: item.urlMp3, index: index))
-                    ..add(FetcTrackIdEvent(model: item));
+                  // context.read<PlayerBloc>()
+                  //   ..add(PlayEvent(urlMp3: item.urlMp3, index: index))
+                  //   ..add(FetcTrackIdEvent(model: item));
                 },
                 isSelect: currentMusicPlaying.id == item.id,
               ),

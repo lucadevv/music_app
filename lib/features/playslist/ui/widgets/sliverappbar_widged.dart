@@ -23,7 +23,6 @@ class SliverAppbarWidget extends StatelessWidget {
           return SliverAppbarLoadingWidget(size: size);
         } else if (state.playListStatus == PlayListStatus.sucess) {
           final listModel = state.playList.trackList;
-          context.read<PlayerBloc>().add(FetcTracksEvent(listModel: listModel));
           return SliverAppBar(
             expandedHeight: size.height * 0.3,
             backgroundColor: Colors.transparent,

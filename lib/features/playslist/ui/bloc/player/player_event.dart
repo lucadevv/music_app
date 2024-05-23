@@ -35,6 +35,8 @@ class StopEvent extends PlayerEvent {}
 
 class NextEvent extends PlayerEvent {}
 
+class PauseEvent extends PlayerEvent {}
+
 class PreviusEvent extends PlayerEvent {}
 
 class SeekEvent extends PlayerEvent {

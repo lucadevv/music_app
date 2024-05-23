@@ -28,12 +28,18 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
     audioPlayer.onPlayerComplete.listen((event) {
       add(NextEvent());
     });
+    audioPlayer.onPlayerComplete.listen((event) {
+      add(StopEvent());
+    });
+
     on<FetcTracksEvent>(fetcTracksEvent);
     on<FetcTrackIdEvent>(fetcTrackIdEvent);
     on<PlayEvent>(playEvent);
     on<ToggleEnvet>(toggleEnvet);
     on<NextEvent>(nextEvent);
+    on<PauseEvent>(pauseEvent);
     on<PreviusEvent>(previusEvent);
+    on<StopEvent>(stopEvent);
     on<SeekEvent>(seekEvent);
   }
   Future<void> fetcTracksEvent(
@@ -65,7 +71,7 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
       await audioPlayer.setSourceUrl(event.urlMp3);
       await audioPlayer.play(UrlSource(event.urlMp3));
       currentTrackIndex = event.index;
-      print(currentTrackIndex);
+
       emit(state.copyWith(
         status: PlayerStatus.sucess,
         reproductorStatus: ReproductorStatus.play,
@@ -116,6 +122,17 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
       currentPosition: event.seek,
     ));
     await audioPlayer.seek(event.seek);
+  }
+
+  Future<void> stopEvent(StopEvent event, Emitter<PlayerState> emit) async {
+    await audioPlayer.stop();
+
+    emit(state.copyWith(reproductorStatus: ReproductorStatus.stop));
+  }
+
+  Future<void> pauseEvent(PauseEvent event, Emitter<PlayerState> emit) async {
+    await audioPlayer.pause();
+    emit(state.copyWith(reproductorStatus: ReproductorStatus.pause));
   }
 
   @override

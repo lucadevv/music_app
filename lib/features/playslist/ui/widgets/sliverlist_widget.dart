@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_app/features/home/ui/bloc/player_favorite_music/player_favorite_music_bloc.dart';
 import 'package:music_app/features/playslist/ui/bloc/play_list/playlist_bloc.dart';
 import 'package:music_app/features/playslist/ui/bloc/player/player_bloc.dart';
 import 'package:music_app/shared/widgets/item_music_widget.dart';
@@ -28,7 +29,6 @@ class _SliverListWidgetState extends State<SliverListWidget> {
               (context, index) {
                 final item = state.playList.trackList[index];
                 final music = context.watch<PlayerBloc>().state.currentTrack;
-
                 return Padding(
                   padding:
                       const EdgeInsets.only(bottom: 12, right: 16, left: 16),
@@ -36,7 +36,12 @@ class _SliverListWidgetState extends State<SliverListWidget> {
                     trackEntity: item,
                     isSelect: music.id == item.id,
                     ontap: () {
+                      context
+                          .read<PlayerFavoriteMusicBloc>()
+                          .add(StopFavoriteEvent());
                       context.read<PlayerBloc>()
+                        ..add(FetcTracksEvent(
+                            listModel: state.playList.trackList))
                         ..add(PlayEvent(urlMp3: item.urlMp3, index: index))
                         ..add(FetcTrackIdEvent(model: item));
                     },

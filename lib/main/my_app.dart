@@ -7,19 +7,23 @@ import 'package:music_app/features/home/data/network/datasource/datasource_ntw.d
 import 'package:music_app/features/home/data/repository/favorite_music_repository_impl.dart';
 import 'package:music_app/features/home/data/repository/search_repository_impl.dart';
 import 'package:music_app/features/home/ui/bloc/favorite_music/favorite_music_bloc.dart';
+import 'package:music_app/features/home/ui/bloc/player_favorite_music/player_favorite_music_bloc.dart';
 import 'package:music_app/features/home/ui/bloc/search/search_bloc.dart';
 import 'package:music_app/features/playslist/ui/bloc/player/player_bloc.dart';
 import 'package:music_app/shared/theme/dark_theme.dart';
 
 class MyApp extends StatelessWidget {
-  final AudioPlayer audioPlayer;
-  const MyApp({super.key, required this.audioPlayer});
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => PlayerBloc(audioPlayer: audioPlayer),
+          create: (context) => PlayerBloc(audioPlayer: AudioPlayer()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              PlayerFavoriteMusicBloc(audioPlayer: AudioPlayer()),
         ),
         BlocProvider(
           lazy: false,
