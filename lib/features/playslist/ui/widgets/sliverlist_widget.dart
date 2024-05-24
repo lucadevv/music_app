@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:music_app/features/home/ui/bloc/player_favorite_music/player_favorite_music_bloc.dart';
 import 'package:music_app/features/playslist/ui/bloc/play_list/playlist_bloc.dart';
 import 'package:music_app/features/playslist/ui/bloc/player/player_bloc.dart';
 import 'package:music_app/shared/widgets/item_music_widget.dart';
@@ -36,9 +35,6 @@ class _SliverListWidgetState extends State<SliverListWidget> {
                     trackEntity: item,
                     isSelect: music.id == item.id,
                     ontap: () {
-                      context
-                          .read<PlayerFavoriteMusicBloc>()
-                          .add(StopFavoriteEvent());
                       context.read<PlayerBloc>()
                         ..add(FetcTracksEvent(
                             listModel: state.playList.trackList))

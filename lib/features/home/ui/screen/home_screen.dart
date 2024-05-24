@@ -89,9 +89,18 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Align(
-                  alignment: Alignment.bottomCenter,
-                  child: MiniReproductorWidget(),
+                BlocBuilder<PlayerBloc, PlayerState>(
+                  builder: (context, state) {
+                    bool isState =
+                        state.reproductorStatus == ReproductorStatus.play ||
+                            state.reproductorStatus == ReproductorStatus.pause;
+                    return Align(
+                      alignment: Alignment.bottomCenter,
+                      child: isState
+                          ? const MiniReproductorWidget()
+                          : const SizedBox(),
+                    );
+                  },
                 ),
               ],
             ),

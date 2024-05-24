@@ -49,8 +49,7 @@ class PlayerBloc extends Bloc<PlayerEvent, PlayerState> {
     ));
     try {
       final response = event.listModel;
-      final trackList = response;
-      emit(state.copyWith(tracksList: trackList, status: PlayerStatus.sucess));
+      emit(state.copyWith(tracksList: response, status: PlayerStatus.sucess));
     } catch (e) {
       emit(state.copyWith(status: PlayerStatus.error));
     }

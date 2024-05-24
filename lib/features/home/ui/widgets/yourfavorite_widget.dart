@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_app/features/home/ui/bloc/favorite_music/favorite_music_bloc.dart';
-import 'package:music_app/features/home/ui/bloc/player_favorite_music/player_favorite_music_bloc.dart';
 import 'package:music_app/features/playslist/ui/bloc/player/player_bloc.dart';
 import 'package:music_app/features/playslist/ui/widgets/sliverlist_widget.dart';
 import 'package:music_app/shared/widgets/item_music_widget.dart';
@@ -47,22 +46,18 @@ class YourFavoriteWidget extends StatelessWidget {
                       itemCount: trackList.length,
                       itemBuilder: (context, index) {
                         final item = trackList[index];
-                        final music = context
-                            .watch<PlayerFavoriteMusicBloc>()
-                            .state
-                            .currentTrack;
+                        final music =
+                            context.watch<PlayerBloc>().state.currentTrack;
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 12),
                           child: ItemMusicWidget(
                             trackEntity: item,
                             ontap: () {
-                              context.read<PlayerBloc>().add(StopEvent());
-                              context.read<PlayerFavoriteMusicBloc>()
-                                ..add(
-                                    FetchAllFavoriteMusic(listModel: trackList))
-                                ..add(PlayFavoriteEvent(
+                              context.read<PlayerBloc>()
+                                ..add(FetcTracksEvent(listModel: trackList))
+                                ..add(PlayEvent(
                                     urlMp3: item.urlMp3, index: index))
-                                ..add(FetchByIdFavoriteMusic(model: item));
+                                ..add(FetcTrackIdEvent(model: item));
                             },
                             isSelect: item.id == music.id,
                           ),
