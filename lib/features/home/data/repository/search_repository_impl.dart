@@ -1,5 +1,5 @@
 import 'package:music_app/features/home/data/network/datasource/datasource_ntw.dart';
-import 'package:music_app/features/home/domain/entites/search_entity/search_home_entity.dart';
+import 'package:music_app/features/home/domain/entites/search_entity/search_home_search_entity.dart';
 import 'package:music_app/features/home/domain/repository/search_music_repository.dart';
 
 class SearchRepositoryImpl extends SearchMusicRepository {

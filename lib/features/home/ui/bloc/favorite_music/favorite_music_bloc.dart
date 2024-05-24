@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:music_app/features/home/domain/entites/your_favorite_music_entity.dart';
+import 'package:music_app/features/home/domain/entites/favority_entity/your_favorite_music_entity.dart';
 import 'package:music_app/features/home/domain/repository/favorite_music_repository.dart';
 
 part 'favorite_music_event.dart';
@@ -47,7 +47,7 @@ class FavoriteMusicBloc extends Bloc<FavoriteMusicEvent, FavoriteMusicState> {
       RemoveFavoriteMusicEvent event, Emitter<FavoriteMusicState> emit) async {
     emit(state.copyWith(status: FavoriteMusicStatus.loading));
     try {
-      favoriteMusicRepository.removeFavorite(model: event.model.track);
+      favoriteMusicRepository.removeFavorite(id: event.id);
       emit(state.copyWith(status: FavoriteMusicStatus.sucess));
     } catch (e) {
       emit(state.copyWith(status: FavoriteMusicStatus.error));

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:music_app/features/playslist/domain/entities/track_entity.dart';
+import 'package:music_app/shared/entity_global/track_global_entity.dart';
 part 'player_event.dart';
 part 'player_state.dart';
 

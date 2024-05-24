@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:music_app/features/home/domain/entites/playlist_home_entity.dart';
+import 'package:music_app/features/home/domain/entites/recent_entity/recent_home_entity.dart';
 import 'package:music_app/features/home/domain/repository/playlist_home_repository.dart';
 
 part 'home_event.dart';

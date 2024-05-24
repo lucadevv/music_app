@@ -1,5 +1,5 @@
 import 'package:music_app/features/home/data/memory/datasource_memorydb_home.dart';
-import 'package:music_app/features/home/domain/entites/your_favorite_music_entity.dart';
+import 'package:music_app/features/home/domain/entites/favority_entity/your_favorite_music_entity.dart';
 import 'package:music_app/features/home/domain/repository/favorite_music_repository.dart';
 import 'package:music_app/features/playslist/domain/entities/track_entity.dart';
 
@@ -19,7 +19,7 @@ class FavoriteMusicRepositoryImpl extends FavoriteMusicRepository {
   }
 
   @override
-  Future<void> removeFavorite({required TrackEntity model}) async {
-    await datasourceMemorydbHome.remodeTrack(model: model);
+  Future<void> removeFavorite({required int id}) async {
+    await datasourceMemorydbHome.remodeTrack(id: id);
   }
 }

@@ -21,8 +21,8 @@ class AddFavoriteMusicEvent extends FavoriteMusicEvent {
 }
 
 class RemoveFavoriteMusicEvent extends FavoriteMusicEvent {
-  final YourFavoriteMusicEntity model;
-  const RemoveFavoriteMusicEvent({required this.model});
+  final int id;
+  const RemoveFavoriteMusicEvent({required this.id});
   @override
-  List<Object> get props => [model];
+  List<Object> get props => [id];
 }

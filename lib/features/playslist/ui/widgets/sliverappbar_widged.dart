@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:music_app/features/playslist/ui/bloc/play_list/playlist_bloc.dart';
-import 'package:music_app/features/playslist/ui/bloc/player/player_bloc.dart';
+import 'package:music_app/shared/bloc/player/player_bloc.dart';
 import 'package:music_app/shared/const/svg_icon.dart';
+import 'package:music_app/shared/entity_global/track_global_entity.dart';
 import 'package:music_app/shared/widgets/circle_loading_widget.dart';
 import 'package:music_app/shared/widgets/linear_loading_widget.dart';
 import 'package:shimmer/shimmer.dart';
@@ -22,7 +23,9 @@ class SliverAppbarWidget extends StatelessWidget {
         if (state.playListStatus == PlayListStatus.loading) {
           return SliverAppbarLoadingWidget(size: size);
         } else if (state.playListStatus == PlayListStatus.sucess) {
-          final listModel = state.playList.trackList;
+          final listGlobal = state.playList.trackList.map((e) {
+            return TrackGloablEntity.trackEntity(e);
+          }).toList();
           return SliverAppBar(
             expandedHeight: size.height * 0.3,
             backgroundColor: Colors.transparent,
@@ -83,8 +86,9 @@ class SliverAppbarWidget extends StatelessWidget {
                               context.read<PlayerBloc>()
                                 ..add(ToggleEnvet())
                                 ..add(PlayEvent(
-                                    urlMp3: listModel.first.urlMp3, index: 0))
-                                ..add(FetcTrackIdEvent(model: listModel.first));
+                                    urlMp3: listGlobal.first.urlMp3, index: 0))
+                                ..add(
+                                    FetcTrackIdEvent(model: listGlobal.first));
                             },
                             child: BlocBuilder<PlayerBloc, PlayerState>(
                               builder: (context, state) {

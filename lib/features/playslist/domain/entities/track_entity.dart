@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:music_app/features/home/domain/entites/search_entity/search_home_entity.dart';
+import 'package:music_app/features/home/domain/entites/search_entity/search_home_search_entity.dart';
 
 class TrackEntity extends Equatable {
   final int id;

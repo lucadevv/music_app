@@ -2,11 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:music_app/features/home/domain/entites/your_favorite_music_entity.dart';
+import 'package:music_app/features/home/domain/entites/favority_entity/your_favorite_music_entity.dart';
 import 'package:music_app/features/home/ui/bloc/favorite_music/favorite_music_bloc.dart';
-import 'package:music_app/features/playslist/domain/entities/track_entity.dart';
 import 'package:music_app/shared/const/app_color.dart';
 import 'package:music_app/shared/const/svg_icon.dart';
+import 'package:music_app/shared/entity_global/track_global_entity.dart';
 import 'package:music_app/shared/widgets/linear_loading_widget.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -18,7 +18,7 @@ class ItemMusicWidget extends StatelessWidget {
     required this.isSelect,
   });
 
-  final TrackEntity trackEntity;
+  final TrackGloablEntity trackEntity;
   final VoidCallback ontap;
   final bool isSelect;
 
@@ -71,7 +71,7 @@ class ItemMusicWidget extends StatelessWidget {
                         ),
                         const SizedBox(width: 6),
                         Text(
-                          trackEntity.author,
+                          trackEntity.artistGlobalEntity.name,
                           style: textTheme.displayMedium!.copyWith(
                             fontWeight: FontWeight.normal,
                           ),
@@ -84,7 +84,7 @@ class ItemMusicWidget extends StatelessWidget {
               BlocBuilder<FavoriteMusicBloc, FavoriteMusicState>(
                 builder: (context, state) {
                   final isFavorite = state.favoriteListMusic
-                      .any((favorite) => favorite.track.id == trackEntity.id);
+                      .any((favorite) => favorite.id == trackEntity.id);
                   return ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Material(
@@ -93,16 +93,15 @@ class ItemMusicWidget extends StatelessWidget {
                         onTap: () {
                           if (isFavorite) {
                             context.read<FavoriteMusicBloc>().add(
-                                RemoveFavoriteMusicEvent(
-                                    model: YourFavoriteMusicEntity(
-                                        isFavorite: false,
-                                        track: trackEntity)));
+                                  RemoveFavoriteMusicEvent(id: trackEntity.id),
+                                );
                           } else {
                             context.read<FavoriteMusicBloc>()
                               ..add(
                                 AddFavoriteMusicEvent(
-                                  model: YourFavoriteMusicEntity(
-                                      isFavorite: true, track: trackEntity),
+                                  model:
+                                      YourFavoriteMusicEntity.trackGlobalEntity(
+                                          trackEntity),
                                 ),
                               )
                               ..add(const FetchAllFavoriteMusicEvent());

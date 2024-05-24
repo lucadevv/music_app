@@ -3,7 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:music_app/features/playslist/ui/bloc/player/player_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:music_app/features/artist/ui/screen/artist_screen.dart';
+import 'package:music_app/shared/bloc/player/player_bloc.dart';
 import 'package:music_app/shared/const/app_color.dart';
 import 'package:music_app/shared/const/svg_icon.dart';
 
@@ -29,9 +31,15 @@ class ShowModalMusic extends StatelessWidget {
             children: [
               ImageFiltered(
                 imageFilter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
-                child: Image.network(
-                  modelPlayer.imagePath,
-                  fit: BoxFit.cover,
+                child: ColorFiltered(
+                  colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.7),
+                    BlendMode.darken,
+                  ),
+                  child: Image.network(
+                    modelPlayer.imagePath,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               Padding(
@@ -66,9 +74,17 @@ class ShowModalMusic extends StatelessWidget {
                           style: textTheme.bodyMedium,
                         ),
                         const SizedBox(height: 6),
-                        Text(
-                          modelPlayer.author,
-                          style: textTheme.displayMedium,
+                        Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: () {
+                              context.pushNamed(ArtistScreen.name);
+                            },
+                            child: Text(
+                              modelPlayer.artistGlobalEntity.name,
+                              style: textTheme.displayMedium,
+                            ),
+                          ),
                         ),
                       ],
                     ),

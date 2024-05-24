@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:music_app/features/home/domain/entites/search_entity/search_home_entity.dart';
+import 'package:music_app/features/home/domain/entites/search_entity/search_home_search_entity.dart';
 import 'package:music_app/features/home/domain/repository/search_music_repository.dart';
 
 part 'search_event.dart';

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_app/features/home/domain/entites/favority_entity/your_favorite_music_entity.dart';
 import 'package:music_app/features/home/ui/bloc/favorite_music/favorite_music_bloc.dart';
-import 'package:music_app/features/playslist/ui/bloc/player/player_bloc.dart';
+import 'package:music_app/shared/bloc/player/player_bloc.dart';
 import 'package:music_app/features/playslist/ui/widgets/sliverlist_widget.dart';
+import 'package:music_app/shared/entity_global/track_global_entity.dart';
 import 'package:music_app/shared/widgets/item_music_widget.dart';
 
 class YourFavoriteWidget extends StatelessWidget {
@@ -34,27 +36,27 @@ class YourFavoriteWidget extends StatelessWidget {
                   if (state.favoriteListMusic.isEmpty) {
                     return const Center(child: Text("Empty List"));
                   } else {
-                    final trackList = state.favoriteListMusic
-                        .map((favorite) => favorite.track)
-                        .toList();
-                    context
-                        .read<PlayerBloc>()
-                        .add(FetcTracksEvent(listModel: trackList));
+                    final trackList = state.favoriteListMusic;
 
                     return ListView.builder(
                       padding: EdgeInsets.zero,
                       itemCount: trackList.length,
                       itemBuilder: (context, index) {
-                        final item = trackList[index];
+                        final item = TrackGloablEntity.yourFavoriteEntity(
+                            trackList[index]);
                         final music =
                             context.watch<PlayerBloc>().state.currentTrack;
+                        final listMap = trackList.map((e) {
+                          return TrackGloablEntity.yourFavoriteEntity(e);
+                        }).toList();
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 12),
                           child: ItemMusicWidget(
                             trackEntity: item,
                             ontap: () {
+                              print(item.artistGlobalEntity.trackList);
                               context.read<PlayerBloc>()
-                                ..add(FetcTracksEvent(listModel: trackList))
+                                ..add(FetcTracksEvent(listModel: listMap))
                                 ..add(PlayEvent(
                                     urlMp3: item.urlMp3, index: index))
                                 ..add(FetcTrackIdEvent(model: item));

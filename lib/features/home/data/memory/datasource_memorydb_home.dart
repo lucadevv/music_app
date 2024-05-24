@@ -1,5 +1,4 @@
-import 'package:music_app/features/home/domain/entites/your_favorite_music_entity.dart';
-import 'package:music_app/features/playslist/domain/entities/track_entity.dart';
+import 'package:music_app/features/home/domain/entites/favority_entity/your_favorite_music_entity.dart';
 
 class DatasourceMemorydbHome {
   Future<void> addFavoriteMusic(
@@ -7,11 +6,13 @@ class DatasourceMemorydbHome {
     if (!musicProvider.contains(model)) {
       musicProvider.add(model);
     } else {}
+
+    print("datasource ${musicProvider.length}");
   }
 
-  Future<void> remodeTrack({required TrackEntity model}) async {
+  Future<void> remodeTrack({required int id}) async {
     try {
-      musicProvider.removeWhere((element) => element.track.id == model.id);
+      musicProvider.removeWhere((element) => element.id == id);
     } catch (e) {
       rethrow;
     }

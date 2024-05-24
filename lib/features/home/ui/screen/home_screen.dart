@@ -7,7 +7,7 @@ import 'package:music_app/features/home/ui/widgets/appbar_home_widget.dart';
 import 'package:music_app/features/home/ui/widgets/category_widget.dart';
 import 'package:music_app/features/home/ui/widgets/playlist_widget.dart';
 import 'package:music_app/features/home/ui/widgets/yourfavorite_widget.dart';
-import 'package:music_app/features/playslist/ui/bloc/player/player_bloc.dart';
+import 'package:music_app/shared/bloc/player/player_bloc.dart';
 import 'package:music_app/features/playslist/ui/widgets/mini_reproducto_widget.dart';
 import 'package:music_app/shared/const/app_color.dart';
 
@@ -19,17 +19,13 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final textTheme = Theme.of(context).textTheme;
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          lazy: false,
-          create: (context) => HomeBloc(
-            playListHomeRepository: PlayListHomeRepositoryImpl(
-              datasourceNtwBdHome: DatasourceNtwBdHome(),
-            ),
-          )..add(const FetchPlayListHomeEvent()),
+    return BlocProvider(
+      lazy: false,
+      create: (context) => HomeBloc(
+        playListHomeRepository: PlayListHomeRepositoryImpl(
+          datasourceNtwBdHome: DatasourceNtwBdHome(),
         ),
-      ],
+      )..add(const FetchPlayListHomeEvent()),
       child: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();

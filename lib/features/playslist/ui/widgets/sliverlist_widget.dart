@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_app/features/playslist/ui/bloc/play_list/playlist_bloc.dart';
-import 'package:music_app/features/playslist/ui/bloc/player/player_bloc.dart';
+import 'package:music_app/shared/bloc/player/player_bloc.dart';
+import 'package:music_app/shared/entity_global/track_global_entity.dart';
 import 'package:music_app/shared/widgets/item_music_widget.dart';
 import 'package:music_app/shared/widgets/linear_loading_widget.dart';
 import 'package:shimmer/shimmer.dart';
@@ -26,20 +27,25 @@ class _SliverListWidgetState extends State<SliverListWidget> {
           return SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                final item = state.playList.trackList[index];
+                final listGlobal = state.playList.trackList.map((e) {
+                  return TrackGloablEntity.trackEntity(e);
+                }).toList();
+                final itemGlobal = TrackGloablEntity.trackEntity(
+                    state.playList.trackList[index]);
+
                 final music = context.watch<PlayerBloc>().state.currentTrack;
                 return Padding(
                   padding:
                       const EdgeInsets.only(bottom: 12, right: 16, left: 16),
                   child: ItemMusicWidget(
-                    trackEntity: item,
-                    isSelect: music.id == item.id,
+                    trackEntity: itemGlobal,
+                    isSelect: music.id == itemGlobal.id,
                     ontap: () {
                       context.read<PlayerBloc>()
-                        ..add(FetcTracksEvent(
-                            listModel: state.playList.trackList))
-                        ..add(PlayEvent(urlMp3: item.urlMp3, index: index))
-                        ..add(FetcTrackIdEvent(model: item));
+                        ..add(FetcTracksEvent(listModel: listGlobal))
+                        ..add(
+                            PlayEvent(urlMp3: itemGlobal.urlMp3, index: index))
+                        ..add(FetcTrackIdEvent(model: itemGlobal));
                     },
                   ),
                 );

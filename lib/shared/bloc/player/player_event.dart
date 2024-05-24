@@ -7,13 +7,13 @@ abstract class PlayerEvent extends Equatable {
 }
 
 class FetcTracksEvent extends PlayerEvent {
-  final List<TrackEntity> listModel;
+  final List<TrackGloablEntity> listModel;
 
   const FetcTracksEvent({required this.listModel});
 }
 
 class FetcTrackIdEvent extends PlayerEvent {
-  final TrackEntity model;
+  final TrackGloablEntity model;
   const FetcTrackIdEvent({required this.model});
 }
 

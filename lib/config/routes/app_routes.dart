@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:music_app/features/artist/ui/screen/artist_screen.dart';
 import 'package:music_app/features/home/ui/screen/home_screen.dart';
 import 'package:music_app/features/playslist/ui/screen/playslist_screen.dart';
 import 'package:music_app/features/splash/ui/screen/splahs_screen.dart';
@@ -20,6 +21,13 @@ final appRoutes = GoRouter(
               builder: (context, state) {
                 final id = int.parse(state.extra.toString());
                 return PlaysListScreen(id: id);
+              },
+            ),
+            GoRoute(
+              name: ArtistScreen.name,
+              path: ArtistScreen.name,
+              builder: (context, state) {
+                return const ArtistScreen();
               },
             ),
           ],

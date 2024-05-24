@@ -3,7 +3,7 @@ part of 'home_bloc.dart';
 enum HomeStatus { initial, loading, sucess, error }
 
 class HomeState extends Equatable {
-  final List<PlayListHomeEntity> plalistHomeEntity;
+  final List<RecentListHomeEntity> plalistHomeEntity;
   final HomeStatus homeStatus;
   const HomeState({
     required this.plalistHomeEntity,
@@ -11,7 +11,7 @@ class HomeState extends Equatable {
   });
 
   HomeState copyWith({
-    List<PlayListHomeEntity>? plalistHomeEntity,
+    List<RecentListHomeEntity>? plalistHomeEntity,
     HomeStatus? homeStatus,
   }) =>
       HomeState(

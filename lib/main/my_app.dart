@@ -8,7 +8,7 @@ import 'package:music_app/features/home/data/repository/favorite_music_repositor
 import 'package:music_app/features/home/data/repository/search_repository_impl.dart';
 import 'package:music_app/features/home/ui/bloc/favorite_music/favorite_music_bloc.dart';
 import 'package:music_app/features/home/ui/bloc/search/search_bloc.dart';
-import 'package:music_app/features/playslist/ui/bloc/player/player_bloc.dart';
+import 'package:music_app/shared/bloc/player/player_bloc.dart';
 import 'package:music_app/shared/theme/dark_theme.dart';
 
 class MyApp extends StatelessWidget {

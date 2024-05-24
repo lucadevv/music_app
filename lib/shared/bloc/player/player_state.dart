@@ -5,12 +5,12 @@ enum ReproductorStatus { initial, play, pause, resume, stop }
 enum PlayerStatus { initial, loading, sucess, error }
 
 class PlayerState extends Equatable {
-  final List<TrackEntity> tracksList;
+  final List<TrackGloablEntity> tracksList;
   final Duration currentPosition;
   final Duration totalPosition;
   final PlayerStatus status;
   final ReproductorStatus reproductorStatus;
-  final TrackEntity currentTrack;
+  final TrackGloablEntity currentTrack;
   final int index;
   const PlayerState({
     required this.tracksList,
@@ -23,11 +23,11 @@ class PlayerState extends Equatable {
   });
 
   PlayerState copyWith({
-    List<TrackEntity>? tracksList,
+    List<TrackGloablEntity>? tracksList,
     Duration? currentPosition,
     Duration? totalPosition,
     PlayerStatus? status,
-    TrackEntity? currentTrack,
+    TrackGloablEntity? currentTrack,
     ReproductorStatus? reproductorStatus,
     int? index,
   }) =>
@@ -41,12 +41,12 @@ class PlayerState extends Equatable {
         index: index ?? this.index,
       );
   factory PlayerState.initial() {
-    return const PlayerState(
-      tracksList: [],
+    return PlayerState(
+      tracksList: const [],
       currentPosition: Duration.zero,
       totalPosition: Duration.zero,
       status: PlayerStatus.initial,
-      currentTrack: TrackEntity.empty(),
+      currentTrack: TrackGloablEntity.empty(),
       reproductorStatus: ReproductorStatus.initial,
       index: -1,
     );
