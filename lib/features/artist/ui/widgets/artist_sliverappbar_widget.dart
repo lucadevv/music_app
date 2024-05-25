@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:music_app/features/artist/ui/bloc/artist/artist_bloc.dart';
 import 'package:music_app/shared/bloc/player/player_bloc.dart';
 import 'package:music_app/shared/const/svg_icon.dart';
@@ -56,9 +57,14 @@ class ArtistSliverAppbarWidget extends StatelessWidget {
                               item.name,
                               style: textTheme.bodyMedium,
                             ),
-                            Text(
-                              item.numFan.toString(),
-                              style: textTheme.displayLarge,
+                            Row(
+                              children: [
+                                const Icon(Icons.person),
+                                Text(
+                                  formatNumber(item.numFan),
+                                  style: textTheme.displayLarge,
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -96,5 +102,10 @@ class ArtistSliverAppbarWidget extends StatelessWidget {
         );
       },
     );
+  }
+
+  String formatNumber(int number) {
+    final formatter = NumberFormat.compact();
+    return formatter.format(number);
   }
 }

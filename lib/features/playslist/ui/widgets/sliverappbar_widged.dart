@@ -83,12 +83,14 @@ class SliverAppbarWidget extends StatelessWidget {
                           const SizedBox(width: 12),
                           InkWell(
                             onTap: () {
-                              context.read<PlayerBloc>()
-                                ..add(ToggleEnvet())
-                                ..add(PlayEvent(
-                                    urlMp3: listGlobal.first.urlMp3, index: 0))
-                                ..add(
-                                    FetcTrackIdEvent(model: listGlobal.first));
+                              context.read<PlayerBloc>().add(ToggleEnvet());
+
+                              // context.read<PlayerBloc>()
+                              //   ..add(PlayEvent(
+                              //       urlMp3: listGlobal.first.urlMp3, index: 0))
+                              //   ..add(
+                              //       FetcTrackIdEvent(model: listGlobal.first));
+                              //context.read<PlayerBloc>().add(ToggleEnvet());
                             },
                             child: BlocBuilder<PlayerBloc, PlayerState>(
                               builder: (context, state) {

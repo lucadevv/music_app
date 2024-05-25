@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:music_app/features/home/ui/cubit/page/pagenavigation_cubit.dart';
 import 'package:music_app/shared/const/app_color.dart';
 import 'package:music_app/shared/models/section_model.dart';
 
-class CategoryWidget extends StatefulWidget {
+class CategoryWidget extends StatelessWidget {
   const CategoryWidget({
     super.key,
   });
 
-  @override
-  State<CategoryWidget> createState() => _CategoryWidgetState();
-}
-
-class _CategoryWidgetState extends State<CategoryWidget> {
-  int indexSelect = 0;
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -26,9 +22,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
           final item = sectionList[index];
           return InkWell(
             onTap: () {
-              setState(() {
-                indexSelect = index;
-              });
+              context.read<PagenavigationCubit>().updatePage(page: index);
             },
             child: Padding(
               padding: const EdgeInsets.only(right: 40),
@@ -38,13 +32,14 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                   Text(
                     item.name,
                     style: textTheme.displayLarge!.copyWith(
-                      color: index == indexSelect
+                      color: index ==
+                              context.watch<PagenavigationCubit>().state.page
                           ? AppColors.white
                           : AppColors.greyTown,
                     ),
                   ),
                   const SizedBox(height: 8),
-                  index == indexSelect
+                  index == context.watch<PagenavigationCubit>().state.page
                       ? AnimatedContainer(
                           height: 5,
                           width: 50,

@@ -33,18 +33,25 @@ class ShowModalMusic extends StatelessWidget {
             alignment: Alignment.center,
             fit: StackFit.expand,
             children: [
-              ImageFiltered(
-                imageFilter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
-                child: CachedNetworkImage(
-                  fit: BoxFit.cover,
-                  key: UniqueKey(),
-                  imageUrl: modelPlayer.imagePath,
-                  placeholder: (context, url) => Shimmer.fromColors(
-                    baseColor: Colors.black.withOpacity(0.5),
-                    highlightColor: Colors.black.withOpacity(0.5),
-                    child: const LinearLoadingWidget(height: 60, width: 60),
+              ColorFiltered(
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.6),
+                  BlendMode.darken,
+                ),
+                child: ImageFiltered(
+                  imageFilter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
+                  child: CachedNetworkImage(
+                    fit: BoxFit.cover,
+                    key: UniqueKey(),
+                    imageUrl: modelPlayer.imagePath,
+                    placeholder: (context, url) => Shimmer.fromColors(
+                      baseColor: Colors.black.withOpacity(0.5),
+                      highlightColor: Colors.black.withOpacity(0.5),
+                      child: const LinearLoadingWidget(height: 60, width: 60),
+                    ),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
               Padding(
@@ -74,9 +81,21 @@ class ShowModalMusic extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          modelPlayer.title,
-                          style: textTheme.bodyMedium,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              modelPlayer.title,
+                              style: textTheme.bodyMedium,
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.download_for_offline,
+                                color: Colors.grey,
+                              ),
+                            )
+                          ],
                         ),
                         const SizedBox(height: 6),
                         Material(

@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_app/features/home/data/network/datasource/datasource_ntw.dart';
 import 'package:music_app/features/home/data/repository/playlist_home_repository_impl.dart';
 import 'package:music_app/features/home/ui/bloc/home/home_bloc.dart';
+import 'package:music_app/features/home/ui/cubit/page/pagenavigation_cubit.dart';
+import 'package:music_app/features/home/ui/page/download_page.dart';
+import 'package:music_app/features/home/ui/page/recent_page.dart';
 import 'package:music_app/features/home/ui/widgets/appbar_home_widget.dart';
 import 'package:music_app/features/home/ui/widgets/category_widget.dart';
-import 'package:music_app/features/home/ui/widgets/playlist_widget.dart';
-import 'package:music_app/features/home/ui/widgets/yourfavorite_widget.dart';
 import 'package:music_app/shared/bloc/player/player_bloc.dart';
 import 'package:music_app/shared/widgets/mini_reproducto_widget.dart';
 import 'package:music_app/shared/const/app_color.dart';
@@ -19,13 +20,20 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final textTheme = Theme.of(context).textTheme;
-    return BlocProvider(
-      lazy: false,
-      create: (context) => HomeBloc(
-        playListHomeRepository: PlayListHomeRepositoryImpl(
-          datasourceNtwBdHome: DatasourceNtwBdHome(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          lazy: false,
+          create: (context) => HomeBloc(
+            playListHomeRepository: PlayListHomeRepositoryImpl(
+              datasourceNtwBdHome: DatasourceNtwBdHome(),
+            ),
+          )..add(const FetchPlayListHomeEvent()),
         ),
-      )..add(const FetchPlayListHomeEvent()),
+        BlocProvider(
+          create: (context) => PagenavigationCubit(),
+        ),
+      ],
       child: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();
@@ -59,26 +67,31 @@ class HomeScreen extends StatelessWidget {
                         AppbarHomeWidget(textTheme: textTheme),
                         const SizedBox(height: 32),
                         Expanded(
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                const CategoryWidget(),
-                                const SizedBox(height: 24),
-                                const PlayListhWidget(),
-                                const SizedBox(height: 48),
-                                const YourFavoriteWidget(),
-                                BlocBuilder<PlayerBloc, PlayerState>(
+                          child: Column(
+                            children: [
+                              const CategoryWidget(),
+                              const SizedBox(height: 24),
+                              Expanded(
+                                flex: 2,
+                                child: BlocBuilder<PagenavigationCubit,
+                                    PagenavigationState>(
                                   builder: (context, state) {
-                                    return Container(
-                                      height: state.reproductorStatus ==
-                                              ReproductorStatus.initial
-                                          ? size.height * 0.0
-                                          : size.height * 0.1,
+                                    return PageView(
+                                      controller: state.pageController,
+                                      onPageChanged: (page) {
+                                        context
+                                            .read<PagenavigationCubit>()
+                                            .updatePage(page: page);
+                                      },
+                                      children: const [
+                                        RecentPage(),
+                                        DownloadPage()
+                                      ],
                                     );
                                   },
-                                )
-                              ],
-                            ),
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ],
