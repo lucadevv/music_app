@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_app/features/playslist/data/network/datasource/datasource_ntw.dart';
 import 'package:music_app/features/playslist/data/repository/play_list_screen_repository_impl.dart';
 import 'package:music_app/features/playslist/ui/bloc/play_list/playlist_bloc.dart';
-import 'package:music_app/features/playslist/ui/widgets/mini_reproducto_widget.dart';
+import 'package:music_app/shared/widgets/mini_reproducto_widget.dart';
 import 'package:music_app/features/playslist/ui/widgets/sliverappbar_widged.dart';
 import 'package:music_app/features/playslist/ui/widgets/sliverlist_widget.dart';
 import 'package:music_app/shared/const/app_color.dart';

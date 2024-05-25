@@ -1,4 +1,4 @@
-class Album {
+class AlbumDbModel {
   final int id;
   final String title;
   final String cover;
@@ -9,7 +9,7 @@ class Album {
   final String md5Image;
   final String tracklist;
 
-  Album({
+  AlbumDbModel({
     required this.id,
     required this.title,
     required this.cover,
@@ -21,7 +21,7 @@ class Album {
     required this.tracklist,
   });
 
-  Album copyWith({
+  AlbumDbModel copyWith({
     int? id,
     String? title,
     String? cover,
@@ -32,7 +32,7 @@ class Album {
     String? md5Image,
     String? tracklist,
   }) =>
-      Album(
+      AlbumDbModel(
         id: id ?? this.id,
         title: title ?? this.title,
         cover: cover ?? this.cover,
@@ -44,16 +44,16 @@ class Album {
         tracklist: tracklist ?? this.tracklist,
       );
 
-  factory Album.fromJson(Map<String, dynamic> json) => Album(
-        id: json["id"] ?? 0,
-        title: json["title"] ?? "no-title",
-        cover: json["cover"] ?? "no-cover",
-        coverSmall: json["cover_small"] ?? "no-coversmall",
-        coverMedium: json["cover_medium"] ?? "no-cover-medium",
-        coverBig: json["cover_big"] ?? "no-cover-big",
-        coverXl: json["cover_xl"] ?? "no-cover-xl",
-        md5Image: json["md5_image"] ?? "no-md5",
-        tracklist: json["tracklist"] ?? "no-tracklist",
+  factory AlbumDbModel.fromJson(Map<String, dynamic> json) => AlbumDbModel(
+        id: json["id"],
+        title: json["title"],
+        cover: json["cover"],
+        coverSmall: json["cover_small"],
+        coverMedium: json["cover_medium"],
+        coverBig: json["cover_big"],
+        coverXl: json["cover_xl"],
+        md5Image: json["md5_image"],
+        tracklist: json["tracklist"],
       );
 
   Map<String, dynamic> toJson() => {

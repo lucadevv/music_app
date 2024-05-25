@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:music_app/features/home/domain/entites/favority_entity/your_favorite_music_entity.dart';
 import 'package:music_app/features/home/ui/bloc/favorite_music/favorite_music_bloc.dart';
+import 'package:music_app/features/playslist/ui/widgets/sliver_list_loading_widget.dart';
 import 'package:music_app/shared/bloc/player/player_bloc.dart';
-import 'package:music_app/features/playslist/ui/widgets/sliverlist_widget.dart';
 import 'package:music_app/shared/entity_global/track_global_entity.dart';
 import 'package:music_app/shared/widgets/item_music_widget.dart';
 
@@ -54,7 +53,6 @@ class YourFavoriteWidget extends StatelessWidget {
                           child: ItemMusicWidget(
                             trackEntity: item,
                             ontap: () {
-                              print(item.artistGlobalEntity.trackList);
                               context.read<PlayerBloc>()
                                 ..add(FetcTracksEvent(listModel: listMap))
                                 ..add(PlayEvent(

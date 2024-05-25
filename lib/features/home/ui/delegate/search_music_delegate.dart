@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_app/features/home/domain/entites/search_entity/search_home_search_entity.dart';
 import 'package:music_app/features/home/ui/bloc/search/search_bloc.dart';
-import 'package:music_app/features/playslist/domain/entities/track_entity.dart';
 import 'package:music_app/shared/bloc/player/player_bloc.dart';
 import 'package:music_app/shared/entity_global/track_global_entity.dart';
 import 'package:music_app/shared/widgets/item_music_widget.dart';

@@ -21,7 +21,7 @@ class SliverAppbarWidget extends StatelessWidget {
     return BlocBuilder<PlaylistBloc, PlaylistState>(
       builder: (context, state) {
         if (state.playListStatus == PlayListStatus.loading) {
-          return SliverAppbarLoadingWidget(size: size);
+          return const SliverAppbarLoadingWidget();
         } else if (state.playListStatus == PlayListStatus.sucess) {
           final listGlobal = state.playList.trackList.map((e) {
             return TrackGloablEntity.trackEntity(e);
@@ -110,7 +110,7 @@ class SliverAppbarWidget extends StatelessWidget {
             ),
           );
         } else {
-          return SliverAppbarLoadingWidget(size: size);
+          return const SliverAppbarLoadingWidget();
         }
       },
     );
@@ -120,13 +120,11 @@ class SliverAppbarWidget extends StatelessWidget {
 class SliverAppbarLoadingWidget extends StatelessWidget {
   const SliverAppbarLoadingWidget({
     super.key,
-    required this.size,
   });
-
-  final Size size;
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return SliverAppBar(
       expandedHeight: size.height * 0.3,
       backgroundColor: Colors.transparent,

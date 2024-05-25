@@ -2,6 +2,9 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_app/config/routes/app_routes.dart';
+import 'package:music_app/features/artist/data/network/datasource_artist_ntw/datasource_artist_ntw.dart';
+import 'package:music_app/features/artist/data/repository/artist_repository_impl.dart';
+import 'package:music_app/features/artist/ui/bloc/artist/artist_bloc.dart';
 import 'package:music_app/features/home/data/memory/datasource_memorydb_home.dart';
 import 'package:music_app/features/home/data/network/datasource/datasource_ntw.dart';
 import 'package:music_app/features/home/data/repository/favorite_music_repository_impl.dart';
@@ -33,6 +36,14 @@ class MyApp extends StatelessWidget {
           create: (context) => SearchBloc(
             searchMusicRepository: SearchRepositoryImpl(
                 datasourceNtwBdHome: DatasourceNtwBdHome()),
+          ),
+        ),
+        BlocProvider(
+          lazy: false,
+          create: (context) => ArtistBloc(
+            artistRepository: ArtistRepositoryImpl(
+              datasourceArtistNtw: DatasourceArtistNtw(),
+            ),
           ),
         ),
       ],

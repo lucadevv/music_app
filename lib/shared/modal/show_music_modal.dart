@@ -1,13 +1,16 @@
 import 'dart:ui';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:music_app/features/artist/ui/bloc/artist/artist_bloc.dart';
 import 'package:music_app/features/artist/ui/screen/artist_screen.dart';
 import 'package:music_app/shared/bloc/player/player_bloc.dart';
 import 'package:music_app/shared/const/app_color.dart';
 import 'package:music_app/shared/const/svg_icon.dart';
+import 'package:music_app/shared/widgets/linear_loading_widget.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ShowModalMusic extends StatelessWidget {
   const ShowModalMusic({
@@ -20,6 +23,7 @@ class ShowModalMusic extends StatelessWidget {
     return BlocBuilder<PlayerBloc, PlayerState>(
       builder: (context, statePlayer) {
         final modelPlayer = statePlayer.currentTrack;
+        final idArtist = modelPlayer.artistGlobalEntity.id;
         return ClipRRect(
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20),
@@ -31,15 +35,16 @@ class ShowModalMusic extends StatelessWidget {
             children: [
               ImageFiltered(
                 imageFilter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
-                child: ColorFiltered(
-                  colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(0.7),
-                    BlendMode.darken,
+                child: CachedNetworkImage(
+                  fit: BoxFit.cover,
+                  key: UniqueKey(),
+                  imageUrl: modelPlayer.imagePath,
+                  placeholder: (context, url) => Shimmer.fromColors(
+                    baseColor: Colors.black.withOpacity(0.5),
+                    highlightColor: Colors.black.withOpacity(0.5),
+                    child: const LinearLoadingWidget(height: 60, width: 60),
                   ),
-                  child: Image.network(
-                    modelPlayer.imagePath,
-                    fit: BoxFit.cover,
-                  ),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
               Padding(
@@ -78,6 +83,11 @@ class ShowModalMusic extends StatelessWidget {
                           color: Colors.transparent,
                           child: InkWell(
                             onTap: () {
+                              context.read<ArtistBloc>()
+                                ..add(FetchArtist(id: idArtist))
+                                ..add(FetchListMusicArtist(
+                                    urlPath: modelPlayer
+                                        .artistGlobalEntity.trackList));
                               context.pushNamed(ArtistScreen.name);
                             },
                             child: Text(

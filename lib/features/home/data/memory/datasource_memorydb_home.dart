@@ -6,8 +6,6 @@ class DatasourceMemorydbHome {
     if (!musicProvider.contains(model)) {
       musicProvider.add(model);
     } else {}
-
-    print("datasource ${musicProvider.length}");
   }
 
   Future<void> remodeTrack({required int id}) async {

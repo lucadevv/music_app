@@ -1,3 +1,4 @@
+import 'package:music_app/features/artist/domain/entities/list_track_artist/artist_tracks_entity.dart';
 import 'package:music_app/features/home/domain/entites/favority_entity/your_favorite_music_entity.dart';
 import 'package:music_app/features/home/domain/entites/search_entity/search_home_search_entity.dart';
 import 'package:music_app/features/playslist/domain/entities/track_entity.dart';
@@ -67,6 +68,16 @@ class TrackGloablEntity {
       urlMp3: et.urlMp3,
       imagePath: et.album.imagePathMedium,
       artistGlobalEntity: ArtistGlobalEntity.artisHomeEntity(et.artist),
+    );
+  }
+  factory TrackGloablEntity.fromArtisTrackEntity(ArtistTracksEntity et) {
+    return TrackGloablEntity(
+      id: et.id,
+      title: et.title,
+      duration: et.duration,
+      urlMp3: et.urlMp3,
+      imagePath: et.album.imagePath,
+      artistGlobalEntity: ArtistGlobalEntity.artistArtistEntity(et.artist),
     );
   }
 }

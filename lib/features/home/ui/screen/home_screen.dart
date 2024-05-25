@@ -8,7 +8,7 @@ import 'package:music_app/features/home/ui/widgets/category_widget.dart';
 import 'package:music_app/features/home/ui/widgets/playlist_widget.dart';
 import 'package:music_app/features/home/ui/widgets/yourfavorite_widget.dart';
 import 'package:music_app/shared/bloc/player/player_bloc.dart';
-import 'package:music_app/features/playslist/ui/widgets/mini_reproducto_widget.dart';
+import 'package:music_app/shared/widgets/mini_reproducto_widget.dart';
 import 'package:music_app/shared/const/app_color.dart';
 
 class HomeScreen extends StatelessWidget {

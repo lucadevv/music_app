@@ -1,3 +1,4 @@
+import 'package:music_app/features/artist/domain/entities/list_track_artist/artist_artist_entity.dart';
 import 'package:music_app/features/home/domain/entites/search_entity/artist_home_search_entity.dart';
 
 class ArtistGlobalEntity {
@@ -19,6 +20,13 @@ class ArtistGlobalEntity {
     );
   }
   factory ArtistGlobalEntity.artisHomeEntity(ArtistHomeEntity et) {
+    return ArtistGlobalEntity(
+      id: et.id,
+      name: et.name,
+      trackList: et.trackList,
+    );
+  }
+  factory ArtistGlobalEntity.artistArtistEntity(ArtisArtisEntity et) {
     return ArtistGlobalEntity(
       id: et.id,
       name: et.name,
