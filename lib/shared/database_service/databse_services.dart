@@ -25,17 +25,10 @@ class DatabaseService {
           title TEXT,
           duration INTEGER,
           url TEXT,
-          imagePath TEXT
+          imagePath TEXT,
+          artist TEXT
         )
         ''');
-        db.execute('''
-        CREATE TABLE artist (
-          id INTEGER PRIMARY KEY,
-          name TEXT,
-          idMusic INTEGER,
-          FOREIGN KEY(idMusic) REFERENCES music(id)
-        )
-      ''');
       },
     );
   }

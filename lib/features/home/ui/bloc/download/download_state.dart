@@ -5,6 +5,7 @@ enum DownloadStatus { initial, loading, succes, errror }
 class DownloadState extends Equatable {
   final List<MusicLocalDb> list;
   final DownloadStatus status;
+
   const DownloadState({
     required this.list,
     required this.status,

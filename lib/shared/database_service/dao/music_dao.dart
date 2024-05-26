@@ -1,5 +1,6 @@
 import 'package:music_app/shared/database_service/databse_services.dart';
 import 'package:music_app/shared/database_service/models/music_localdb.dart';
+import 'package:sqflite/sqflite.dart';
 
 class MusicDao {
   final database = DatabaseService.instance.db;
@@ -13,13 +14,22 @@ class MusicDao {
   }
 
   Future<int> insertMusic(MusicLocalDb music) async {
-    return await database.insert("music", {
-      "id": music.id,
-      "title": music.title,
-      "duration": music.duration,
-      "url": music.urlPath,
-      "imagePath": music.imagePath,
-    });
+    try {
+      return await database.insert(
+        "music",
+        {
+          "id": music.id,
+          "title": music.title,
+          "duration": music.duration,
+          "url": music.urlPath,
+          "imagePath": music.imagePath,
+          "artist": music.artist,
+        },
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   Future<void> update(MusicLocalDb music) async {

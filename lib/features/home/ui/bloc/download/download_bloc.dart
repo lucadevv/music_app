@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:music_app/features/home/domain/repository/download_music_repository.dart';
@@ -21,7 +20,6 @@ class DownloadBloc extends Bloc<DownloadEvent, DownloadState> {
     emit(state.copyWith(status: DownloadStatus.loading));
     try {
       final response = await downloadMusicRepository.getAllMusicDownload();
-
       emit(state.copyWith(list: response, status: DownloadStatus.succes));
     } catch (e) {
       emit(state.copyWith(status: DownloadStatus.errror));

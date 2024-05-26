@@ -22,6 +22,7 @@ class ArtistBloc extends Bloc<ArtistEvent, ArtistState> {
     try {
       final response =
           await artistRepository.fetchAllTracksArtist(url: event.urlPath);
+
       emit(state.copyWith(status: ArtistStatus.success, list: response));
     } catch (e) {
       emit(state.copyWith(status: ArtistStatus.error));
@@ -32,7 +33,6 @@ class ArtistBloc extends Bloc<ArtistEvent, ArtistState> {
     emit(state.copyWith(status: ArtistStatus.loading));
     try {
       final response = await artistRepository.fetchArtist(id: event.id);
-
       emit(state.copyWith(
           status: ArtistStatus.success, currentArtist: response));
     } catch (e) {

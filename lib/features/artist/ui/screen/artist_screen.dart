@@ -24,18 +24,7 @@ class ArtistScreen extends StatelessWidget {
           children: [
             CustomScrollView(
               slivers: [
-                BlocBuilder<ArtistBloc, ArtistState>(
-                  builder: (context, state) {
-                    switch (state.status) {
-                      case ArtistStatus.loading:
-                        return const SliverAppbarLoadingWidget();
-                      case ArtistStatus.success:
-                        return const ArtistSliverAppbarWidget();
-                      default:
-                        return const SliverAppbarLoadingWidget();
-                    }
-                  },
-                ),
+                const ArtistSliverAppbarWidget(),
                 const SliverToBoxAdapter(child: SizedBox(height: 12)),
                 BlocBuilder<ArtistBloc, ArtistState>(
                   builder: (context, state) {

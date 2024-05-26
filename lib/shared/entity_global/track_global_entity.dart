@@ -2,6 +2,7 @@ import 'package:music_app/features/artist/domain/entities/list_track_artist/arti
 import 'package:music_app/features/home/domain/entites/favority_entity/your_favorite_music_entity.dart';
 import 'package:music_app/features/home/domain/entites/search_entity/search_home_search_entity.dart';
 import 'package:music_app/features/playslist/domain/entities/track_entity.dart';
+import 'package:music_app/shared/database_service/models/music_localdb.dart';
 import 'package:music_app/shared/entity_global/artist_gobal_entity.dart';
 
 class TrackGloablEntity {
@@ -78,6 +79,17 @@ class TrackGloablEntity {
       urlMp3: et.urlMp3,
       imagePath: et.album.imagePath,
       artistGlobalEntity: ArtistGlobalEntity.artistArtistEntity(et.artist),
+    );
+  }
+  factory TrackGloablEntity.fromMusicLocalDb(MusicLocalDb md) {
+    return TrackGloablEntity(
+      id: md.id,
+      title: md.title,
+      duration: md.duration,
+      urlMp3: md.urlPath,
+      imagePath: md.imagePath,
+      artistGlobalEntity:
+          ArtistGlobalEntity(id: -1, name: md.artist, trackList: ""),
     );
   }
 }
