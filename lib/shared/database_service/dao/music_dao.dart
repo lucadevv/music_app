@@ -24,6 +24,8 @@ class MusicDao {
           "url": music.urlPath,
           "imagePath": music.imagePath,
           "artist": music.artist,
+          "artistId": music.artistId,
+          "artistList": music.artistList
         },
         conflictAlgorithm: ConflictAlgorithm.replace,
       );

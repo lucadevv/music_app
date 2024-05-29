@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -44,19 +45,26 @@ class ShowModalMusic extends StatelessWidget {
                     ),
                     child: ImageFiltered(
                       imageFilter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
-                      child: CachedNetworkImage(
-                        fit: BoxFit.cover,
-                        key: UniqueKey(),
-                        imageUrl: modelPlayer.imagePath,
-                        placeholder: (context, url) => Shimmer.fromColors(
-                          baseColor: Colors.black.withOpacity(0.5),
-                          highlightColor: Colors.black.withOpacity(0.5),
-                          child:
-                              const LinearLoadingWidget(height: 60, width: 60),
-                        ),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
-                      ),
+                      child: modelPlayer.imagePath.startsWith('https')
+                          ? CachedNetworkImage(
+                              fit: BoxFit.cover,
+                              key: UniqueKey(),
+                              imageUrl: modelPlayer.imagePath,
+                              placeholder: (context, url) => Shimmer.fromColors(
+                                baseColor: Colors.black.withOpacity(0.5),
+                                highlightColor: Colors.black.withOpacity(0.5),
+                                child: const LinearLoadingWidget(
+                                    height: 60, width: 60),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                            )
+                          : Image.file(
+                              fit: BoxFit.cover,
+                              File(
+                                modelPlayer.imagePath,
+                              ),
+                            ),
                     ),
                   ),
                   Padding(
@@ -78,7 +86,12 @@ class ShowModalMusic extends StatelessWidget {
                               )
                             ],
                             image: DecorationImage(
-                              image: NetworkImage(modelPlayer.imagePath),
+                              image: modelPlayer.imagePath.startsWith('https')
+                                  ? NetworkImage(
+                                      modelPlayer.imagePath,
+                                    )
+                                  : FileImage(File(modelPlayer.imagePath))
+                                      as ImageProvider,
                             ),
                           ),
                         ),

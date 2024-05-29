@@ -26,7 +26,9 @@ class DatabaseService {
           duration INTEGER,
           url TEXT,
           imagePath TEXT,
-          artist TEXT
+          artist TEXT,
+          artistId INTEGER,
+          artistList TEXT
         )
         ''');
       },

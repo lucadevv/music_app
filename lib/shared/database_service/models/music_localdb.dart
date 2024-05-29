@@ -7,6 +7,8 @@ class MusicLocalDb {
   final String urlPath;
   final String imagePath;
   final String artist;
+  final int artistId;
+  final String artistList;
 
   MusicLocalDb({
     required this.id,
@@ -15,6 +17,8 @@ class MusicLocalDb {
     required this.urlPath,
     required this.imagePath,
     required this.artist,
+    required this.artistId,
+    required this.artistList,
   });
 
   MusicLocalDb copyWith({
@@ -24,6 +28,8 @@ class MusicLocalDb {
     String? urlPath,
     String? imagePath,
     String? artist,
+    int? artistId,
+    String? artistList,
   }) =>
       MusicLocalDb(
         id: id ?? this.id,
@@ -32,6 +38,8 @@ class MusicLocalDb {
         urlPath: urlPath ?? this.urlPath,
         imagePath: imagePath ?? this.imagePath,
         artist: artist ?? this.artist,
+        artistId: artistId ?? this.artistId,
+        artistList: artistList ?? this.artistList,
       );
   factory MusicLocalDb.fromMapDb(Map<String, dynamic> map) {
     return MusicLocalDb(
@@ -41,6 +49,8 @@ class MusicLocalDb {
       urlPath: map['url'],
       imagePath: map['imagePath'],
       artist: map["artist"],
+      artistId: map["artistId"],
+      artistList: map["artistList"],
     );
   }
   Map<String, dynamic> toMap() {
@@ -50,7 +60,9 @@ class MusicLocalDb {
       'duration': duration,
       'url': urlPath,
       'imagePath': imagePath,
-      'artist': artist
+      'artist': artist,
+      'artistId': artistId,
+      'artistList': artistList,
     };
   }
 
@@ -62,6 +74,8 @@ class MusicLocalDb {
       urlPath: et.urlMp3,
       imagePath: et.imagePath,
       artist: et.artistGlobalEntity.name,
+      artistId: et.artistGlobalEntity.id,
+      artistList: et.artistGlobalEntity.trackList,
     );
   }
 }

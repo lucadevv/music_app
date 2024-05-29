@@ -15,15 +15,17 @@ class DatasourceLocalDb {
   }
 
   Future<void> inserMusic({required MusicLocalDb music}) async {
-    final String nameFileUpdate = "${music.title.replaceAll(' ', '_')}.mp3";
-
-    final dir = await getApplicationDocumentsDirectory();
-    final filePath = join(dir.path, nameFileUpdate);
-
-    await dio.download(music.urlPath, filePath);
-
     try {
-      await musicDao.insertMusic(music.copyWith(urlPath: filePath));
+      final String nameFileUpdate = "${music.title.replaceAll(' ', '_')}.mp3";
+      final String nameImageFileUpdate =
+          "${music.title.replaceAll(' ', '_')}.jpg";
+      final dir = await getApplicationDocumentsDirectory();
+      final filePath = join(dir.path, nameFileUpdate);
+      final fileImagePath = join(dir.path, nameImageFileUpdate);
+      await dio.download(music.urlPath, filePath);
+      await dio.download(music.imagePath, fileImagePath);
+      await musicDao.insertMusic(
+          music.copyWith(urlPath: filePath, imagePath: fileImagePath));
     } catch (e) {
       throw Exception(e);
     }

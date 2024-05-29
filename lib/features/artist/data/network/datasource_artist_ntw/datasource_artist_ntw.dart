@@ -22,10 +22,8 @@ class DatasourceArtistNtw {
   }
 
   Future<ArtistResponseDbModel> fetchArtistDb({required int id}) async {
-    // final response = await dio.get("https://api.deezer.com/artist/$id");
-    final response = await dio.get("https://api.deezer.com/artist/$id");
-
     try {
+      final response = await dio.get("https://api.deezer.com/artist/$id");
       final Map<String, dynamic> responseMap = response.data;
       final model = ArtistResponseDbModel.fromJson(responseMap);
       return model;

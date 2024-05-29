@@ -30,13 +30,14 @@ class ArtistBloc extends Bloc<ArtistEvent, ArtistState> {
   }
 
   Future<void> fetchArtist(FetchArtist event, Emitter<ArtistState> emit) async {
-    emit(state.copyWith(status: ArtistStatus.loading));
+    emit(state.copyWith(currentArtistStatus: CurrentArtistStatus.loading));
     try {
       final response = await artistRepository.fetchArtist(id: event.id);
       emit(state.copyWith(
-          status: ArtistStatus.success, currentArtist: response));
+          currentArtistStatus: CurrentArtistStatus.success,
+          currentArtist: response));
     } catch (e) {
-      emit(state.copyWith(status: ArtistStatus.error));
+      emit(state.copyWith(currentArtistStatus: CurrentArtistStatus.errro));
     }
   }
 }

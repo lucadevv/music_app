@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,16 +39,22 @@ class ItemMusicWidget extends StatelessWidget {
                 duration: const Duration(milliseconds: 100),
                 height: isSelect ? 80 : 60,
                 width: isSelect ? 80 : 60,
-                child: CachedNetworkImage(
-                  key: UniqueKey(),
-                  imageUrl: trackEntity.imagePath,
-                  placeholder: (context, url) => Shimmer.fromColors(
-                    baseColor: Colors.grey.withOpacity(0.5),
-                    highlightColor: Colors.white.withOpacity(0.5),
-                    child: const LinearLoadingWidget(height: 60, width: 60),
-                  ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
+                child: trackEntity.imagePath.startsWith('https')
+                    ? CachedNetworkImage(
+                        key: UniqueKey(),
+                        imageUrl: trackEntity.imagePath,
+                        placeholder: (context, url) => Shimmer.fromColors(
+                          baseColor: Colors.grey.withOpacity(0.5),
+                          highlightColor: Colors.white.withOpacity(0.5),
+                          child:
+                              const LinearLoadingWidget(height: 60, width: 60),
+                        ),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      )
+                    : Image.file(
+                        File(trackEntity.imagePath),
+                      ),
               ),
               const SizedBox(width: 8),
               Expanded(

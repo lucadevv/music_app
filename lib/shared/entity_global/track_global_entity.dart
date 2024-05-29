@@ -88,8 +88,11 @@ class TrackGloablEntity {
       duration: md.duration,
       urlMp3: md.urlPath,
       imagePath: md.imagePath,
-      artistGlobalEntity:
-          ArtistGlobalEntity(id: -1, name: md.artist, trackList: ""),
+      artistGlobalEntity: ArtistGlobalEntity(
+        id: md.artistId,
+        name: md.artist,
+        trackList: md.artistList,
+      ),
     );
   }
 }

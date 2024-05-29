@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -56,9 +58,13 @@ class MiniReproductorWidget extends StatelessWidget {
                               width: size.height * 0.05,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  image: NetworkImage(
-                                    modelPlayer.imagePath,
-                                  ),
+                                  image: modelPlayer.imagePath
+                                          .startsWith('https')
+                                      ? NetworkImage(
+                                          modelPlayer.imagePath,
+                                        )
+                                      : FileImage(File(modelPlayer.imagePath))
+                                          as ImageProvider,
                                 ),
                                 borderRadius: BorderRadius.circular(8),
                               ),

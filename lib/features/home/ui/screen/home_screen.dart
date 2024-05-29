@@ -85,7 +85,7 @@ class HomeScreen extends StatelessWidget {
                                       },
                                       children: const [
                                         RecentPage(),
-                                        DownloadPage()
+                                        DownloadPage(),
                                       ],
                                     );
                                   },
