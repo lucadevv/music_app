@@ -117,9 +117,20 @@ class ShowModalMusic extends StatelessWidget {
                                           ),
                                         );
                                   },
-                                  icon: const Icon(
-                                    Icons.download_for_offline,
-                                    color: Colors.grey,
+                                  icon:
+                                      BlocBuilder<DownloadBloc, DownloadState>(
+                                    builder: (context, state) {
+                                      bool isDownloaded = state.list.contains(
+                                        MusicLocalDb.fromTrackGloablEntity(
+                                            modelPlayer),
+                                      );
+                                      return Icon(
+                                        Icons.download_for_offline,
+                                        color: isDownloaded
+                                            ? Colors.green
+                                            : Colors.grey,
+                                      );
+                                    },
                                   ),
                                 )
                               ],
@@ -164,11 +175,6 @@ class ShowModalMusic extends StatelessWidget {
                               thumbColor: AppColors.pink,
                               inactiveColor: AppColors.greyTown,
                             ),
-                            // LinearProgressIndicator(
-                            //   value: progresss,
-                            //   color: AppColors.purpleOne,
-                            //   backgroundColor: Colors.grey[300],
-                            // ),
                             const SizedBox(height: 8),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,

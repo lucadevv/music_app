@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:music_app/shared/entity_global/track_global_entity.dart';
 
-class MusicLocalDb {
+class MusicLocalDb extends Equatable {
   final int id;
   final String title;
   final int duration;
@@ -10,7 +11,7 @@ class MusicLocalDb {
   final int artistId;
   final String artistList;
 
-  MusicLocalDb({
+  const MusicLocalDb({
     required this.id,
     required this.title,
     required this.duration,
@@ -78,4 +79,16 @@ class MusicLocalDb {
       artistList: et.artistGlobalEntity.trackList,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        title,
+        duration,
+        urlPath,
+        imagePath,
+        artist,
+        artistId,
+        artistList,
+      ];
 }
