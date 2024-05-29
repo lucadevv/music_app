@@ -27,7 +27,7 @@ class DownloadPage extends StatelessWidget {
               final listGlobal = state.list.map((e) {
                 return TrackGloablEntity.fromMusicLocalDb(e);
               }).toList();
-              print(item.artistGlobalEntity.id);
+
               return ItemMusicWidget(
                 trackEntity: item,
                 ontap: () {

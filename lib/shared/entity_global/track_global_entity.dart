@@ -40,9 +40,9 @@ class TrackGloablEntity {
       urlMp3: entity.urlMp3,
       imagePath: entity.imagePath,
       artistGlobalEntity: ArtistGlobalEntity(
-        id: -1,
+        id: entity.idAuthor,
         name: entity.author,
-        trackList: "",
+        trackList: entity.listTrack,
       ),
     );
   }

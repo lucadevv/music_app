@@ -31,7 +31,6 @@ class _SliverListWidgetState extends State<SliverListWidget> {
                 }).toList();
                 final itemGlobal = TrackGloablEntity.trackEntity(
                     state.playList.trackList[index]);
-
                 final music = context.watch<PlayerBloc>().state.currentTrack;
                 return Padding(
                   padding:

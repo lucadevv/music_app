@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_app/features/playslist/data/network/datasource/datasource_ntw.dart';
 import 'package:music_app/features/playslist/data/repository/play_list_screen_repository_impl.dart';
 import 'package:music_app/features/playslist/ui/bloc/play_list/playlist_bloc.dart';
+import 'package:music_app/shared/bloc/player/player_bloc.dart';
 import 'package:music_app/shared/widgets/mini_reproducto_widget.dart';
 import 'package:music_app/features/playslist/ui/widgets/sliverappbar_widged.dart';
 import 'package:music_app/features/playslist/ui/widgets/sliverlist_widget.dart';
@@ -72,9 +73,21 @@ class PlaysListScreen extends StatelessWidget {
                 height: size.height * 0.1,
                 width: size.width,
                 duration: const Duration(milliseconds: 1000),
-                child: const Stack(
+                child: Stack(
                   children: [
-                    MiniReproductorWidget(),
+                    BlocBuilder<PlayerBloc, PlayerState>(
+                      builder: (context, state) {
+                        bool isState = state.reproductorStatus ==
+                                ReproductorStatus.play ||
+                            state.reproductorStatus == ReproductorStatus.pause;
+                        return Align(
+                          alignment: Alignment.bottomCenter,
+                          child: isState
+                              ? const MiniReproductorWidget()
+                              : const SizedBox(),
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),

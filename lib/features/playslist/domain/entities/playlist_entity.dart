@@ -31,6 +31,8 @@ class PlayListEntity {
             duration: song.duration,
             urlMp3: song.preview,
             imagePath: song.album.coverBig,
+            idAuthor: song.artist.id,
+            listTrack: song.artist.tracklist,
           ),
         )
         .toList();
