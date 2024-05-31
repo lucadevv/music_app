@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:music_app/features/playslist/ui/bloc/play_list/playlist_bloc.dart';
 import 'package:music_app/shared/bloc/player/player_bloc.dart';
 import 'package:music_app/shared/const/svg_icon.dart';
-import 'package:music_app/shared/entity_global/track_global_entity.dart';
 import 'package:music_app/shared/widgets/circle_loading_widget.dart';
 import 'package:music_app/shared/widgets/linear_loading_widget.dart';
 import 'package:shimmer/shimmer.dart';
@@ -23,9 +22,9 @@ class SliverAppbarWidget extends StatelessWidget {
         if (state.playListStatus == PlayListStatus.loading) {
           return const SliverAppbarLoadingWidget();
         } else if (state.playListStatus == PlayListStatus.sucess) {
-          final listGlobal = state.playList.trackList.map((e) {
-            return TrackGloablEntity.trackEntity(e);
-          }).toList();
+          // final listGlobal = state.playList.trackList.map((e) {
+          //   return TrackGloablEntity.trackEntity(e);
+          // }).toList();
           return SliverAppBar(
             expandedHeight: size.height * 0.3,
             backgroundColor: Colors.transparent,
