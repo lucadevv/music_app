@@ -4,10 +4,6 @@
 
 Welcome to the MusicApp Repository, a mobile app designed to give users easy access to their favorite music. This project showcases my experience in developing mobile applications using Flutter and demonstrates advanced techniques in managing data from an API using clean architecture principles and state management with Flutter Bloc.
 
-## Download APK
-Download the latest version of the app:
-<a href="https://zphhqkbfmmilwzqcmdgu.supabase.co/storage/v1/object/public/profile/rickandmorty.apk?t=2024-05-14T22%3A09%3A07.227Z">Download APK</a>
-
 ## Features
 
 - **Favorites Section**: Save your favorite tracks for easy access.
