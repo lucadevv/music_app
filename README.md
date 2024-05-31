@@ -1,4 +1,4 @@
-![MasterHeader](https://zphhqkbfmmilwzqcmdgu.supabase.co/storage/v1/object/public/profile/rickandomorty.webp)
+![MasterHeader](https://zphhqkbfmmilwzqcmdgu.supabase.co/storage/v1/object/public/profile/musicapp_banner.webp)
 
 # MusicApp
 
@@ -39,5 +39,5 @@ You will need the following tools installed on your machine:
 ### Setup
 Clone the repository:
 ```bash
-git clone https://github.com/YourUsername/music_app.git
+git clone https://github.com/YourUsername/music_app.git](https://github.com/lucadevv/music_app
 cd music_app
