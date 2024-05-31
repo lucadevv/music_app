@@ -28,16 +28,28 @@ Download the latest version of the app:
 - **Favorites Page**: Displays the user's saved tracks.
 - **Artist Details Page**: Shows detailed information about an artist and their songs.
 
-## Installation
-
-### Prerequisites
+### Previous requirements
 You will need the following tools installed on your machine:
 - Flutter 3.19.3
 - Dart 3.3.1
-- An IDE (VSCode, Android Studio, or IntelliJ)
+- An IDE (VSCode, Android Studio or IntelliJ)
 
-### Setup
+### Facility
 Clone the repository:
-```bash
-git clone https://github.com/YourUsername/music_app.git](https://github.com/lucadevv/music_app
-cd music_app
+```play
+git clone https://github.com/lucadevv/music_app
+cd rickandmortyapp
+```
+Install dependencies:
+```play
+pub flutter get
+```
+
+## Architecture
+This project adheres to clean architecture guidelines, which are structured as follows:
+- **Data layer**: Manages data transactions and transformations to and from the database.
+- **Domain layer**: Contains entities and business logic.
+- **Presentation layer**: comprises state management and UI components handled by Flutter Bloc.
+
+## Contributions
+Feel free to contribute to this project! Fork the repository and submit pull requests with the proposed changes. This project is for educational use.
