@@ -1,4 +1,4 @@
-![MasterHeader](https://zphhqkbfmmilwzqcmdgu.supabase.co/storage/v1/object/public/profile/musicapp_banner.webp)
+![MasterHeader](https://zphhqkbfmmilwzqcmdgu.supabase.co/storage/v1/object/public/profile/177shots_so.webp)
 
 # MusicApp
 
