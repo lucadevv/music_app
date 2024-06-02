@@ -34,7 +34,7 @@ You will need the following tools installed on your machine:
 Clone the repository:
 ```play
 git clone https://github.com/lucadevv/music_app
-cd rickandmortyapp
+cd music_app
 ```
 Install dependencies:
 ```play
